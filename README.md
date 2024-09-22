@@ -35,15 +35,15 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
   
   ![.](imagenesWiki/CableadoEstructuradoFoto1.png)
   
-El cableado estructurado realizado se hizo siguiendo las indicaciones en clase y las lecturas. Todos los computadores fueron conectados a los patch panels A y B, para esto se conectaron los punchdowns A a el patch panel A y los punchdowns B y el patch panel B, esto por las normas impuestas dentro de las lecturas, siendo las A para la red_unisabana y las B para la red SOHO que se monto para este laboratorio. Se montaron dispositivos extras en nuevos racks y mesas para poder cumplir lo que pide el laboratorio y se utilizaron los 3 primeros switches del cableado para la topologia del SOHO.
+ El cableado estructurado realizado se hizo siguiendo las indicaciones en clase y las lecturas. Todos los computadores fueron conectados a los patch panels A y B, para esto se conectaron los   punchdowns A a el patch panel A y los punchdowns B y el patch panel B, esto por las normas impuestas dentro de las lecturas, siendo las A para la red_unisabana y las B para la red SOHO que se montó para este laboratorio. Se montaron dispositivos extras en nuevos racks y mesas para poder cumplir lo que pide el laboratorio y se utilizaron los 3 primeros switches del cableado para la topologia del SOHO.
 
 ![.](imagenesWiki/CableadoEstructuradoFoto2.png)
 
-Los patch panels de interconexion se conectaron por la parte de atras para poder conectar dispositivos que se encontraban en distintos racks, un set de ocho para cada interconexión, se conectan en la parte de atras para no tener cables entre racks en la parte de al frente. 
+ Los patch panels de interconexión se conectaron por la parte de atrás para poder conectar dispositivos que se encontraban en distintos racks, un set de ocho para cada interconexión, se conectan en la parte de atrás para no tener cables entre racks en la parte de enfrente. 
 
 ![.](imagenesWiki/CableadoEstructuradoFoto3.png)
 
-Se puede evidenciar el proceso del cableado realizado en la sala de computación. Solo 4 computadores estan funcionando debido a que en la topologia pedida para el labortario solo disponia de 4 computadores y como se reutilizo el primer switch se desconectaron los otros computadores a este para que no impidieran en conseguir la topologia deseada.
+ Se puede evidenciar el proceso del cableado realizado en la sala de computación. Solo 4 computadores están funcionando debido a que en la topologiá pedida para el laboratorio solo disponía de 4 computadores y como se reutilizo el primer switch se desconectaron los otros computadores a este para que no impidiera en conseguir la topologiá deseada.
   
 * Esquema de direccionamiento IPv4: Se diseñó un esquema de direccionamiento basado en los requerimientos de las VLAN, asignando rangos de direcciones según la cantidad de dispositivos. Se realizó el Subneteo y se construyó una tabla de direccionamiento para toda la topología, teniendo en cuenta que las VLANs 20 y 40 requieren 1022 clientes cada una, mientras que las VLANs 99 y 55, requieren 254 clientes cada una y que la  zona de servidores  requiere 10 hosts
 
