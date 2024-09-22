@@ -58,7 +58,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
   * **Se encontraron problemas, como se solucionaron? evidencia de la solución y la prueba del funcionamiento**
 
 * Verificación del protocolo STP: Se verificó que el protocolo STP estuviera correctamente configurado para evitar bucles, y se comprobó cuál de los switches fue seleccionado como puente raíz.
-  **por qué? **
+  **por qué?**
   * Para hacer la verificación se utiliza el comando **show spanning-tree** que muestra información como La configuración de STP, las VLANs para las cuales está activo, el estado de los puertos (puerto raíz, puerto designado, etc.), el tiempo de convergencia y otros parámetros relevantes **foto**
   * Para verificar si es posible hacer Telnet desde un PC a otros switches y a un router (como R_SOHO) se utiliza el siguiente comando en la línea de comandos (CMD) del PC, **telnet <dirección IP>** 
 
