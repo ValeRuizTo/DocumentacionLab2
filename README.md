@@ -31,7 +31,19 @@ Estos routers permiten la comunicación entre la red SOHO y servidores externos.
 Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2960-24TT), que ofrece servicios externos.
 
 ## 3. Síntesis de la metodología y resultados de configuración: 
-* Montaje de la topología: Utilizando el cableado estructurado y los modelos de dispositivos indicados (Switches Cisco 2960, Router Cisco 2811, WLC 3504 y LAP 3702i), se recreó la topología de red en Cisco Packet Tracer. **foto y explicacion cableado estructurado**
+* Montaje de la topología: Utilizando el cableado estructurado y los modelos de dispositivos indicados (Switches Cisco 2960, Router Cisco 2811 (Routers a los cuales se les agrego el modulo WIC-2T para permitir conexiones seriales, es decir para poder conectar multiples routers entre si para poder similar la WAN del internet), WLC 3504 y LAP 3702i), se recreó la topología de red en Cisco Packet Tracer.
+  
+  ![.](imagenesWiki/CableadoEstructuradoFoto1.png)
+  
+El cableado estructurado realizado se hizo siguiendo las indicaciones en clase y las lecturas. Todos los computadores fueron conectados a los patch panels A y B, para esto se conectaron los punchdowns A a el patch panel A y los punchdowns B y el patch panel B, esto por las normas impuestas dentro de las lecturas, siendo las A para la red_unisabana y las B para la red SOHO que se monto para este laboratorio. Se montaron dispositivos extras en nuevos racks y mesas para poder cumplir lo que pide el laboratorio y se utilizaron los 3 primeros switches del cableado para la topologia del SOHO.
+
+![.](imagenesWiki/CableadoEstructuradoFoto2.png)
+
+Los patch panels de interconexion se conectaron por la parte de atras para poder conectar dispositivos que se encontraban en distintos racks, un set de ocho para cada interconexión, se conectan en la parte de atras para no tener cables entre racks en la parte de al frente. 
+
+![.](imagenesWiki/CableadoEstructuradoFoto3.png)
+
+Se puede evidenciar el proceso del cableado realizado en la sala de computación. Solo 4 computadores estan funcionando debido a que en la topologia pedida para el labortario solo disponia de 4 computadores y como se reutilizo el primer switch se desconectaron los otros computadores a este para que no impidieran en conseguir la topologia deseada.
   
 * Esquema de direccionamiento IPv4: Se diseñó un esquema de direccionamiento basado en los requerimientos de las VLAN, asignando rangos de direcciones según la cantidad de dispositivos. Se realizó el Subneteo y se construyó una tabla de direccionamiento para toda la topología, teniendo en cuenta que las VLANs 20 y 40 requieren 1022 clientes cada una, mientras que las VLANs 99 y 55, requieren 254 clientes cada una y que la  zona de servidores  requiere 10 hosts
 
