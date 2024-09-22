@@ -31,12 +31,12 @@ Estos routers permiten la comunicación entre la red SOHO y servidores externos.
 Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2960-24TT), que ofrece servicios externos.
 
 ## 3. Síntesis de la metodología y resultados de configuración: 
-* Montaje de la topología: Utilizando el cableado estructurado y los modelos de dispositivos indicados (Switches Cisco 2960, Router Cisco 2811, WLC 3504 y LAP 3702i), se recreó la topología de red en Cisco Packet Tracer. **Los dispositivos adicionales necesarios fueron conectados según los requisitos de la red.**
+* Montaje de la topología: Utilizando el cableado estructurado y los modelos de dispositivos indicados (Switches Cisco 2960, Router Cisco 2811, WLC 3504 y LAP 3702i), se recreó la topología de red en Cisco Packet Tracer. **foto y explicacion cableado estructurado**
   
-* Esquema de direccionamiento IPv4: Se diseñó un esquema de direccionamiento basado en los requerimientos de las VLAN, asignando rangos de direcciones según la cantidad de dispositivos. Se realizó el Subneteo y se construyó una tabla de direccionamiento para toda la topología, teniendo en cuenta que las VLANs 20 y 40 requieren 1022 clientes cada una, mientras que las VLANs 99 y 55, requieren 254 clientes cada una.
+* Esquema de direccionamiento IPv4: Se diseñó un esquema de direccionamiento basado en los requerimientos de las VLAN, asignando rangos de direcciones según la cantidad de dispositivos. Se realizó el Subneteo y se construyó una tabla de direccionamiento para toda la topología, teniendo en cuenta que las VLANs 20 y 40 requieren 1022 clientes cada una, mientras que las VLANs 99 y 55, requieren 254 clientes cada una y que la  zona de servidores  requiere 10 hosts
 
 
-* Configuración de VLANs: Se crearon y configuraron las **cantidad de VLANS** VLANs según el esquema de direccionamiento diseñado. Se verificó la correcta creación y funcionamiento de estas mediante los siguientes comandos:
+* Configuración de VLANs: Se crearon y configuraron las 4 VLANs del SOHO y la VLAN de la zona de servidores según el esquema de direccionamiento diseñado. Se verificó la correcta creación y funcionamiento de estas mediante los siguientes comandos:
   * Para mostrar la configuración de VLANs en el switch:
       - show vlan brief: Este comando muestra un resumen de todas las VLANs configuradas en el switch, incluyendo sus IDs y los puertos asignados. **foto**
   * Para ver la configuración de interfaces:
