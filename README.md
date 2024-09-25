@@ -47,6 +47,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
   
 * **Esquema de direccionamiento IPv4:** Se diseñó un esquema de direccionamiento basado en los requerimientos de las VLAN, asignando rangos de direcciones según la cantidad de dispositivos. Se realizó el Subneteo y se construyó una tabla de direccionamiento para toda la topología, teniendo en cuenta que las VLANs 20 y 40 requieren 1022 clientes cada una, mientras que las VLANs 99 y 55, requieren 254 clientes cada una y que la  zona de servidores  requiere 10 hosts
 
+![.](imagenesWiki/subneteo internet)
 
 * **Configuración de VLANs:** Se crearon y configuraron las 4 VLANs del SOHO y la VLAN de la zona de servidores según el esquema de direccionamiento diseñado. Se verificó la correcta creación y funcionamiento de estas mediante los siguientes comandos:
   * Para mostrar la configuración de VLANs en el switch:
@@ -86,13 +87,14 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
 todo el proceso de desarrollo del esquema de direccionamiento IPv4 propuesto por su equipo y diligencie 
 las tablas de Subneteo y direccionamiento de la red.
 **Subneteo y su tabla**
+
 **Tabla de direccionamiento de red**
 
 
-2) análisis y proceso de configuración de los servicios de red requeridos para el correcto 
+3) análisis y proceso de configuración de los servicios de red requeridos para el correcto 
 funcionamiento de la red empresarial.
 
-3) Evaluación del flujo bidireccional de datos generado al acceder a la página alojada en el servidor Web por los 
+4) Evaluación del flujo bidireccional de datos generado al acceder a la página alojada en el servidor Web por los 
 nodos terminales (PCs y dispositivos móviles) de las diferentes VLANs que conforman la topología, utilizando el servicio DNS. Como también, al verificar la conectividad de un PCs a otro y de un 
 PC al Gateway. **Justifique su análisis utilizando capturas con el simulador y los filtros de paquetes de Cisco 
 Packet Tracer**.
