@@ -47,11 +47,13 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
   
 * **Esquema de direccionamiento IPv4:** Se diseñó un esquema de direccionamiento basado en los requerimientos de las VLAN, asignando rangos de direcciones según la cantidad de dispositivos. Se realizó el Subneteo y se construyó una tabla de direccionamiento para toda la topología, teniendo en cuenta que las VLANs 20 y 40 requieren 1022 clientes cada una, mientras que las VLANs 99 y 55, requieren 254 clientes cada una y que la  zona de servidores  requiere 10 hosts
 
-![.](imagenesWiki/subneteo internet)
+| ![.](imagenesWiki/subneteoInternet.jpg)| ![.](imagenesWiki/subneteosoho.jpg) |![.](imagenesWiki/subneteoServidores.jpg) |
+|:----------------------------------------------:|:---------------------------------------------------------:|:---------------------------------------------------------:|
 
 * **Configuración de VLANs:** Se crearon y configuraron las 4 VLANs del SOHO y la VLAN de la zona de servidores según el esquema de direccionamiento diseñado. Se verificó la correcta creación y funcionamiento de estas mediante los siguientes comandos:
   * Para mostrar la configuración de VLANs en el switch:
-      - show vlan brief: Este comando muestra un resumen de todas las VLANs configuradas en el switch, incluyendo sus IDs y los puertos asignados. **foto**
+      - show vlan brief: Este comando muestra un resumen de todas las VLANs configuradas en el switch, incluyendo sus IDs y los puertos asignados. **Switch red SOHO:**
+        ![.](imagenesWiki/vlansoho.jpg)
   * Para ver la configuración de interfaces:
       - show ip interface brief: Este comando te permite ver el estado de las interfaces, incluyendo cuáles están asignadas a qué VLAN. **foto**
   * Para ver la configuración de la interfaz específica:
