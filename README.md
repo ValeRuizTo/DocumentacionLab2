@@ -52,10 +52,22 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
 
 * **Configuración de VLANs:** Se crearon y configuraron las 4 VLANs del SOHO y la VLAN de la zona de servidores según el esquema de direccionamiento diseñado. Se verificó la correcta creación y funcionamiento de estas mediante los siguientes comandos:
   * Para mostrar la configuración de VLANs en el switch:
-      - show vlan brief: Este comando muestra un resumen de todas las VLANs configuradas en el switch, incluyendo sus IDs y los puertos asignados. **Switch red SOHO:**
-        ![.](imagenesWiki/vlansoho.jpg)
+      - ***show vlan brief***: Este comando muestra un resumen de todas las VLANs configuradas en el switch, incluyendo sus IDs y los puertos asignados.
+        
+| Switch red soho  | Descripción                                                                                                                                                                                                                                                                                                             |
+|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ![.](imagenesWiki/vlansoho.jpg) | **VLAN Name**: Muestra el nombre de cada VLAN. Las VLANs identificadas son: <br>1: default, <br>20: Guest,<br> 40: Internal, <br>55: Staff,<br> 99: Native.<br> <br> **Status**: Muestra el estado de cada VLAN, que en todos los casos aparece como <br> "active", lo que significa que están operativas.<br> <br> **Ports**: Indica los puertos asignados a cada VLAN. Por ejemplo:<br> VLAN 1 (default) tiene asignados los puertos Fa0/6 a Fa0/9, Fa0/10 a Fa0/13, <br> Fa0/14 a Fa0/17, y otros hasta Gig0/2.<br> VLAN 20 (Guest) tiene asignado el puerto Fa0/4.<br> VLAN 40 (Internal) tiene asignado el puerto Fa0/3.<br> VLAN 55 (Staff) tiene asignado el puerto Fa0/5.<br> VLAN 99 (Native) no tiene puertos visibles asignados.<br> También se observan otras VLANs predeterminadas como 1002 (fddi-default),<br> 1003 (token-ring-default), <br>1004 (fddinet-default), <br>y 1005 (trnet-default), todas en estado activo pero sin puertos asignados en este caso. |
+
+
   * Para ver la configuración de interfaces:
-      - show ip interface brief: Este comando te permite ver el estado de las interfaces, incluyendo cuáles están asignadas a qué VLAN. **foto**
+      - ***show ip interface brief:*** Este comando te permite ver el estado de las interfaces, incluyendo cuáles están asignadas a qué VLAN.
+   
+| Switch red soho  | Descripción                                                                                                                                                                                                                                                                                                             |
+|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ![.](imagenesWiki/puertosvlansoho.jpg) | **VLAN Name**: Muestra el nombre de cada VLAN. Las VLANs identificadas son: <br>1: default, <br>20: Guest,<br> 40: Internal, <br>55: Staff,<br> 99: Native.<br> <br> **Status**: Muestra el estado de cada VLAN, que en todos los casos aparece como <br> "active", lo que significa que están operativas.<br> <br> **Ports**: Indica los puertos asignados a cada VLAN. Por ejemplo:<br> VLAN 1 (default) tiene asignados los puertos Fa0/6 a Fa0/9, Fa0/10 a Fa0/13, <br> Fa0/14 a Fa0/17, y otros hasta Gig0/2.<br> VLAN 20 (Guest) tiene asignado el puerto Fa0/4.<br> VLAN 40 (Internal) tiene asignado el puerto Fa0/3.<br> VLAN 55 (Staff) tiene asignado el puerto Fa0/5.<br> VLAN 99 (Native) no tiene puertos visibles asignados.<br> También se observan otras VLANs predeterminadas como 1002 (fddi-default),<br> 1003 (token-ring-default), <br>1004 (fddinet-default), <br>y 1005 (trnet-default), todas en estado activo pero sin puertos asignados en este caso. |
+
+
+  
   * Para ver la configuración de la interfaz específica:
       - show running-config interface (nombre de la interfaz):  Se reemplaza "nombre de la interfaz" para ver la configuración detallada de esa interfaz. **foto**
 
