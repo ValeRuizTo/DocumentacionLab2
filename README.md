@@ -80,7 +80,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
   * configuración de **DHCP** o manuales
 
 
-* **Pruebas de conectividad:** Se realizaron pruebas de conectividad entre dispositivos de la misma VLAN y entre diferentes VLANs, utilizando comandos como ping y tracert. También se comprobó la conectividad con las puertas de enlace y otros servicios.
+* **Pruebas de conectividad:** Se realizaron pruebas de conectividad entre dispositivos de la misma VLAN y entre diferentes VLANs, utilizando comandos como ping y tracert. También se comprobó la conectividad con las puertas de enlace y otros servicios.:)
  **fotos**
   * **Se encontraron problemas, como se solucionaron? evidencia de la solución y la prueba del funcionamiento**
 
