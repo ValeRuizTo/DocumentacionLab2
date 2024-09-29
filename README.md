@@ -64,21 +64,40 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
 
 
   * Para ver la configuración de interfaces:
-      - ***show ip interface brief:*** Este comando te permite ver el estado de las interfaces, incluyendo cuáles están asignadas a qué VLAN.
-   
+      - ***show running-config | section interface:*** Este comando revela la configuración de las interfaces del dispositivo. Aquí se detallan las interfaces con configuraciones relacionadas con las VLANs, los puertos en modo acceso y los enlaces troncales. Por esta reazon el comando solo se va a usar en la red SOHO donde hay VLANS asignadas
+  
+  - Enlaces troncales: Los puertos Fa0/1, Fa0/2, y Gi0/1 están configurados como troncales, transportando múltiples VLANs, lo cual es típico en una red donde se requiere que varias VLANs pasen por una única interfaz entre switches o entre un switch y un router.
+  - Puertos de acceso: Los puertos Fa0/3, Fa0/4 y Fa0/5 están configurados en modo acceso, cada uno vinculado a una VLAN específica (40, 20 y 55 respectivamente), lo que los conecta a dispositivos que solo necesitan pertenecer a una única VLAN.
+  - VLANs: Se tienen varias interfaces VLAN configuradas con direcciones IP específicas, lo que podría indicar que el switch está actuando como un router de capa 3, o que se están utilizando estas VLANs para enrutar tráfico entre diferentes segmentos de red.
+    
 | Switch red soho  | Descripción                                                                                                                                                                                                                                                                                                             |
 |----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ![.](imagenesWiki/puertosvlansoho.jpg) | **VLAN Name**: Muestra el nombre de cada VLAN. Las VLANs identificadas son: <br>1: default, <br>20: Guest,<br> 40: Internal, <br>55: Staff,<br> 99: Native.<br> <br> **Status**: Muestra el estado de cada VLAN, que en todos los casos aparece como <br> "active", lo que significa que están operativas.<br> <br> **Ports**: Indica los puertos asignados a cada VLAN. Por ejemplo:<br> VLAN 1 (default) tiene asignados los puertos Fa0/6 a Fa0/9, Fa0/10 a Fa0/13, <br> Fa0/14 a Fa0/17, y otros hasta Gig0/2.<br> VLAN 20 (Guest) tiene asignado el puerto Fa0/4.<br> VLAN 40 (Internal) tiene asignado el puerto Fa0/3.<br> VLAN 55 (Staff) tiene asignado el puerto Fa0/5.<br> VLAN 99 (Native) no tiene puertos visibles asignados.<br> También se observan otras VLANs predeterminadas como 1002 (fddi-default),<br> 1003 (token-ring-default), <br>1004 (fddinet-default), <br>y 1005 (trnet-default), todas en estado activo pero sin puertos asignados en este caso. |
+| <img src="imagenesWiki/interfacessoho.jpg" width="1500px"> | ***Interface FastEthernet0/1:*** <br> **switchport trunk native vlan 99:** Configura la VLAN nativa del troncal como la VLAN 99. Esto significa que el tráfico no etiquetado será asignado a esta VLAN <br> **switchport trunk allowed vlan 20,40,55,99:** Permite que las VLANs 20, 40, 55 y 99 puedan pasar por esta interfaz en modo troncal. <br> **switchport mode trunk:** Configura el puerto en modo troncal, lo que significa que puede transportar tráfico de múltiples VLANs. <br><br> ***Interface FastEthernet0/2:*** Tiene la misma configuración que FastEthernet0/1: es una interfaz en modo troncal que permite las VLANs 20, 40, 55 y 99, con la VLAN nativa configurada como 99.<br><br>***Interfaces FastEthernet0/3 y FastEthernet0/4:*** <br>**switchport access vlan 40 (en Fa0/3) y switchport access vlan 20 (en Fa0/4):** Estas interfaces están configuradas en modo acceso, lo que significa que pertenecen a una sola VLAN (40 o 20, respectivamente) y cualquier tráfico en estos puertos será etiquetado para la VLAN correspondiente. <br><br> ***Interface FastEthernet0/5:***<br> **switchport access vlan 55:** Está configurada como un puerto de acceso para la VLAN 55.<br> <br> **Interfaces FastEthernet0/6 a FastEthernet0/24:** Estas interfaces no tienen configuraciones adicionales especificadas, por lo que probablemente estén en su configuración predeterminada, o no están activas.<br><br> **Interfaces GigabitEthernet0/1 y GigabitEthernet0/2:** *GigabitEthernet0/1* tiene una configuración similar a Fa0/1 y Fa0/2, en modo troncal, permitiendo las VLANs 20, 40, 55 y 99, con la VLAN 99 como VLAN nativa y *GigabitEthernet0/2* no tiene configuraciones específicas aparte de estar en modo troncal.<br><br> ***Interfaces de VLAN:*** <br> **interface Vlan20:** Asignada a la dirección *IP 172.23.0.3* con la máscara de red 255.255.255.0.<br> **interface Vlan40:** Asignada a la dirección *IP 172.23.4.3* con la máscara 255.255.255.0.<br> **interface Vlan55:** Asignada a la dirección *IP 172.23.8.3* con la misma máscara 255.255.255.0.<br> **interface Vlan99:** Asignada a la dirección IP *172.23.9.3* con una máscara de 255.255.255.0. |
 
 
 
-
-* **Configuración de dispositivos:** Se aplicaron configuraciones básicas a los switches y router, como la asignación de direcciones IP a las interfaces dependiendo del Subneteo realizado anteriormente y configuración de servicios como DHCP, DNS y NAT. Además, se configuró el WLC y el LAP (punto de acceso inalámbrico) para la red WLAN. La documentación de los routers y switches están en un archivo .txt adjunto en el repositorio y en la tarea en teams.
+* **Configuración de dispositivos:** Se aplicaron configuraciones básicas a los switches y router, como la asignación de direcciones IP a las interfaces dependiendo del Subneteo realizado anteriormente y configuración de servicios como DHCP, DNS y NAT. Además, se configuró el WLC y el LAP (punto de acceso inalámbrico) para la red WLAN. La documentación de los routers y switches están en un **archivo .txt adjunto** en el repositorio y en la tarea en teams.
 
 
 * **Asignación y verificación de IPs:** Se verificó que las direcciones IP fueran asignadas correctamente a todos los dispositivos de la red. Se utilizaron comandos TCP/IP para comprobar la conectividad entre los nodos.
   * **¿Se requiere asignación dinámica y/o estática? ¿Dónde? ¿Traducción de direcciones de forma dinámica y/o estático y/o por puertos? ¿En qué terminales se deben configurar los servicios requeridos?**
-   * configuración de **NAT**
+   * configuración de **NAT**:
+     1. ***Conservación de direcciones IP:*** En una red SOHO como la que se tiene, los dispositivos internos usan direcciones IP privadas (la red  SOHO usa  172.23.0.0), que no son válidas en Internet. NAT actua como un traductor entre direcciones publicas y privadas para que asi, desde la soho aque tiene una direccion piblica se pueda acceder al internet y posteriormente a la red de servidores, que ambos son publicos. En este caso se usó PAT (Port Address Translation), "que es una extensión a la traducción de direcciones de red (NAT), que permite que varios dispositivos en una red de área local (LAN) se puedan asignar a una sola direccion IP publica" [5].
+        - ¿Por Qué PAT?
+          
+            En la topología, donde hay varios dispositivos en la red SOHO (172.23.0.0/16) que necesitan acceder a Internet, PAT es una excelente solución porque permite que todos los dispositivos de la red SOHO utilicen una sola dirección IP pública (o un pequeño rango de IPs públicas) para acceder a Internet. Los dispositivos compartirán la dirección IP pública del router de la zona de interconexión WAN (11.31.12.0) cuando se conecten a Internet.
+
+        - ¿Cómo funciona PAT?
+          
+          *Dirección IP compartida*: Todos los dispositivos dentro de tu red SOHO (PCs, smartphones, tablets, etc.) envían tráfico a Internet utilizando direcciones IP privadas (como 172.23.x.x). El router que tiene configurado NAT/PAT traduce todas estas direcciones IP           privadas a una única dirección IP pública asignada a la interfaz de salida del router (hacia Internet).
+
+          *Asignación de puertos:* Para diferenciar el tráfico de cada dispositivo dentro de la red, el router cambia los números de puerto en los encabezados de los paquetes TCP/UDP. Esto permite que muchos dispositivos compartan una única dirección IP pública, ya que           cada conexión queda identificada por una combinación de la dirección IP pública y el puerto único asignado a cada dispositivo.
+          
+     2.  ***Interconexión WAN:*** En la topología, se estan utilizando routers para conectar varios dispositivos a la red del ISP. NAT permite que los routers gestionen múltiples conexiones internas hacia el exterior sin conflictos de dirección IP, facilitando la conectividad hacia servicios externos, como los servidores en la zona azul.
+    
+     3.  ***Seguridad:*** NAT actúa como una capa de protección, ya que oculta las direcciones IP internas de la red SOHO. Esto significa que desde el exterior (Internet) no se puede acceder directamente a las máquinas en la red interna sin una configuración explícita.
+
+
   * configuración de **DHCP** o manuales
 
 
@@ -127,4 +146,4 @@ Packet Tracer**.
 
 4: Cisco, "Cisco 2811 Integrated Services Router," Cisco Community, [En línea] Disponible en: https://community.cisco.com/t5/networking-knowledge-base/cisco-2811-integrated-services-router/ta-p/3116259.
 
-
+5: A. Sanchez, "Port Address Translation (PAT): Ejemplos," ADSL FAQS, Jul. 11, 2020. [En línea]. Disponible en: https://adslfaqs.com/port-address-translation-pat-ejemplos/.
