@@ -33,7 +33,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
 ## 3. Síntesis de la metodología y resultados de configuración: 
 * **Montaje de la topología:** Utilizando el cableado estructurado y los modelos de dispositivos indicados (Switches Cisco 2960, Router Cisco 2811 (Routers a los cuales se les agrego el modulo WIC-2T para permitir conexiones seriales, es decir para poder conectar multiples routers entre si para poder similar la WAN del internet), WLC 3504 y LAP 3702i), se recreó la topología de red en Cisco Packet Tracer.
   
-  ![.](imagenesWiki/CableadoEstructuradoFoto1.png)
+  ![.](imagenesWiki/CableadoEstructuradoFoto1Nuevo.png)
   
  El cableado estructurado realizado se hizo siguiendo las indicaciones en clase y las lecturas. Todos los computadores fueron conectados a los patch panels A y B, para esto se conectaron los   punchdowns A a el patch panel A y los punchdowns B y el patch panel B, esto por las normas impuestas dentro de las lecturas, siendo las A para la red_unisabana y las B para la red SOHO que se montó para este laboratorio. Se montaron dispositivos extras en nuevos racks y mesas para poder cumplir lo que pide el laboratorio y se utilizaron los 3 primeros switches del cableado para la topologia del SOHO.
 
