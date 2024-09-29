@@ -110,7 +110,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
        - Configuración Centralizada: El servidor DHCP en la red SOHO centraliza la asignación de IPs, DNS y puerta de enlace predeterminada, lo que hace que la administración sea más simple y eficiente para los          administradores de la red.
        - Escalabilidad: Al tener varios dispositivos que pueden conectarse o desconectarse con regularidad, DHCP asegura que las direcciones IP se asignen y liberen automáticamente, evitando la necesidad de             asignarlas manualmente cada vez.
 
-        ![.](imagenesWiki/dhcpsoho.jpg)
+        ![.](imagenesWiki/dchpsoho.jpg)
 
 
     2. ***Red de Servidores (161.130.8.0):***
@@ -121,12 +121,13 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
        - Configuraciones Manuales: Los servidores requieren configuraciones manuales más específicas y detalladas que las que proporciona DHCP. Además, el uso de IPs estáticas asegura que los servidores no           cambien de dirección IP, lo que es crucial para el funcionamiento de servicios de red como DNS o servidores web.
 
 
-    3.  ***Red de Interconexión WAN (11.31.12.0):***
-    La red WAN conecta tu red local a Internet mediante routers Cisco 2811 y otros dispositivos de interconexión. En este caso:
+    3. ***Red de Interconexión WAN (11.31.12.0)::***
+              
+       La red WAN conecta tu red local a Internet mediante routers Cisco 2811 y otros dispositivos de interconexión. En este caso:
+         
+       - Consistencia y Accesibilidad: Los servidores  deben tener direcciones IP fijas para que puedan ser accesibles desde cualquier parte de la red y desde Internet. Las aplicaciones y servicios que dependen       de ellos necesitan saber siempre cuál es su dirección IP.
+       - Configuraciones Manuales: Los servidores requieren configuraciones manuales más específicas y detalladas que las que proporciona DHCP. Además, el uso de IPs estáticas asegura que los servidores no           cambien de dirección IP, lo que es crucial para el funcionamiento de servicios de red como DNS o servidores web.
 
-    - Routers y Gateways: Los routers y otros dispositivos de interconexión también necesitan direcciones IP fijas para garantizar una conexión estable con otras redes externas. Usar direcciones estáticas en         esta zona asegura que los routers mantengan la misma IP pública, lo cual es esencial para la comunicación con el ISP y otros routers en la WAN.
-    - Tráfico Estable: En una WAN, los dispositivos y routers generalmente no cambian con frecuencia, por lo que no es necesario utilizar DHCP. Al tener direcciones fijas, se garantiza una gestión más               controlada y predecible del tráfico de red hacia y desde Internet.
- 
 
 * **Pruebas de conectividad:** Se realizaron pruebas de conectividad entre dispositivos de la misma VLAN y entre diferentes VLANs, utilizando comandos como ping y tracert. También se comprobó la conectividad con las puertas de enlace y otros servicios.:)
  **fotos**
