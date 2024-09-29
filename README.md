@@ -179,8 +179,39 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
 
     
 * **Verificación del protocolo STP:** Se verificó que el protocolo STP estuviera correctamente configurado para evitar bucles, y se comprobó cuál de los switches fue seleccionado como puente raíz.
-  **por qué?**
-  * Para hacer la verificación se utiliza el comando **show spanning-tree** que muestra información como La configuración de STP, las VLANs para las cuales está activo, el estado de los puertos (puerto raíz, puerto designado, etc.), el tiempo de convergencia y otros parámetros relevantes **foto**
+
+    * Para hacer la verificación se utiliza el comando **show spanning-tree** que muestra información como La configuración de STP, las VLANs para las cuales está activo, el estado de los puertos (puerto raíz, puerto designado, etc.), el tiempo de convergencia y otros parámetros relevantes
+    
+    * la salida del comando show spanning-tree muestra que el switch actual (sw1_Intranet) es el puente raíz para varias VLANs
+                                  ![.](imagenesWiki/spanningtree.jpg)
+  
+
+      * Información General de VLANs:
+      La salida muestra información sobre varias VLANs (VLAN0020, VLAN0040, VLAN0055 y VLAN0099), y cada una tiene configurado el protocolo STP. A continuación se presenta un desglose de cada sección:
+
+         1. ***Root ID:***
+         
+            - Priority: Indica la prioridad del puente raíz (Root Bridge) de la VLAN. La prioridad más baja gana, por lo que aquí se puede observar que el puente raíz tiene diferentes prioridades para cada VLAN (32788 para VLAN0020, 32808 para VLAN0040, etc.).
+            - Address: Muestra la dirección MAC del puente raíz, que en este caso es 0001.4217.5157. Este switch es el puente raíz para todas las VLANs listadas, ya que en cada caso se indica "This bridge is the root".
+        
+        2. ***Bridge ID:***
+            - También incluye la dirección MAC del switch actual y la prioridad del puente. La salida indica que el switch actual es también el puente raíz para las VLANs, como se muestra en las prioridades.
+        
+        3. ***Parámetros de STP:***
+            - Hello Time: 2 segundos, el intervalo entre los mensajes Hello enviados por el puente raíz para mantener la topología.
+            - Max Age: 20 segundos, el tiempo que un switch mantiene información de la topología antes de considerarla obsoleta.
+            - Forward Delay: 15 segundos, el tiempo que un puerto permanece en estado de escucha antes de poder comenzar a enviar tráfico.
+
+        4. ***Estado de los Puertos:***
+            - Cada VLAN muestra una tabla con la información de los puertos:
+            - Interface: El puerto del switch (por ejemplo, Fa0/1, Fa0/23, etc.).
+            - Role: Indica si el puerto es Designado (Desg) o Raíz (Root). Todos los puertos listados son Designados (Desg), lo que significa que están activos y pueden enviar y recibir tráfico.
+            - Sts: Estado del puerto (FWD indica que el puerto está en modo de reenvío).
+            - Cost: Costo asociado al puerto. Los costos más bajos son preferidos en la selección de caminos hacia el puente raíz.
+            - Prio.Nbr: La prioridad del puerto y su número (por ejemplo, 128.1 para Fa0/1).
+            - Type: Indica el tipo de conexión (en este caso, P2p, que significa punto a punto).
+
+            
   * Para verificar si es posible hacer Telnet desde un PC a otros switches y a un router (como R_SOHO) se utiliza el siguiente comando en la línea de comandos (CMD) del PC, **telnet <dirección IP>** 
 
 * **Configuración de enrutamiento:** Se configuraron los protocolos de enrutamiento OSPF o EIGRP en las interfaces necesarias, verificando el correcto enrutamiento de paquetes entre las redes LAN y WAN.
