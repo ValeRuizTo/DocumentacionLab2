@@ -85,7 +85,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
      1. ***Conservación de direcciones IP:*** En una red SOHO como la que se tiene, los dispositivos internos usan direcciones IP privadas (la red  SOHO usa  172.23.0.0), que no son válidas en Internet. NAT actua como un traductor entre direcciones publicas y privadas para que asi, desde la soho aque tiene una direccion piblica se pueda acceder al internet y posteriormente a la red de servidores, que ambos son publicos. En este caso se usó PAT (Port Address Translation), "que es una extensión a la traducción de direcciones de red (NAT), que permite que varios dispositivos en una red de área local (LAN) se puedan asignar a una sola direccion IP publica" [5].
         - ¿Por Qué PAT?
           
-            En la topología, donde hay varios dispositivos en la red SOHO (172.23.0.0/16) que necesitan acceder a Internet, PAT es una excelente solución porque permite que todos los dispositivos de la red SOHO utilicen una sola dirección IP pública (o un pequeño rango de IPs públicas) para acceder a Internet. Los dispositivos compartirán la dirección IP pública del router de la zona de interconexión WAN (11.31.12.0) cuando se conecten a Internet.
+            En la topología, donde hay varios dispositivos en la red SOHO (172.23.0.0/16) que necesitan acceder a Internet, PAT es una excelente solución porque permite que todos los dispositivos de la red SOHO utilicen una sola dirección IP pública (o un pequeño rango de IPs públicas) para acceder a Internet. Los dispositivos compartirán la dirección IP pública del router de la zona de interconexión WAN (11.31.12.0) cuando se conecten a Internet. En la topologia el servicio de PAT está configurado en el router de la red WAN (Cisco 2811), que traduce las direcciones IP privadas de la red SOHO a la dirección IP pública utilizada para acceder a Internet."
 
         - ¿Cómo funciona PAT?
           
@@ -98,13 +98,13 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
      3.  ***Seguridad:*** NAT actúa como una capa de protección, ya que oculta las direcciones IP internas de la red SOHO. Esto significa que desde el exterior (Internet) no se puede acceder directamente a las máquinas en la red interna sin una configuración explícita.
 
 
-  * Configuración de **DHCP** y manuales
+  * Configuración de **DHCP**, asignacion **Dinamica** 
     
     Se usa DHCP en la red SOHO y no en las otras redes debido a las diferentes necesidades de cada zona:
     
     1. ***Red SOHO (172.23.0.0):***
               
-       La red SOHO está compuesta por dispositivos como PCs, laptops, tablets, impresoras y otros dispositivos que pertenecen a un entorno de oficina o hogar. En este tipo de entorno:
+       La red SOHO está compuesta por dispositivos como PCs, laptops, tablets, impresoras y otros dispositivos que pertenecen a un entorno de oficina o hogar. Este esta configurado en el Server 0, es un servidor que asigna direcciones IP automáticamente a los dispositivos, esto se hace por las siguientes razones :
          
        - Facilidad y Flexibilidad: Los dispositivos que entran y salen de la red con frecuencia, como tablets, smartphones o laptops, necesitan una forma flexible de obtener una dirección IP sin tener que                configurarla manualmente. DHCP facilita esto, ya que asigna direcciones IP dinámicamente sin intervención del usuario.
        - Configuración Centralizada: El servidor DHCP en la red SOHO centraliza la asignación de IPs, DNS y puerta de enlace predeterminada, lo que hace que la administración sea más simple y eficiente para los          administradores de la red.
@@ -112,7 +112,8 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
 
         ![.](imagenesWiki/dchpsoho.jpg)
 
-
+  * Asignación **Estatica**
+    
     2. ***Red de Servidores (161.130.8.0):***
               
        En la zona de servidores, los dispositivos como el servidor DNS y el servidor web necesitan tener direcciones IP fijas o estáticas:
@@ -125,11 +126,39 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
               
        La red WAN conecta tu red local a Internet mediante routers Cisco 2811 y otros dispositivos de interconexión. En este caso:
          
-       - Consistencia y Accesibilidad: Los servidores  deben tener direcciones IP fijas para que puedan ser accesibles desde cualquier parte de la red y desde Internet. Las aplicaciones y servicios que dependen       de ellos necesitan saber siempre cuál es su dirección IP.
-       - Configuraciones Manuales: Los servidores requieren configuraciones manuales más específicas y detalladas que las que proporciona DHCP. Además, el uso de IPs estáticas asegura que los servidores no           cambien de dirección IP, lo que es crucial para el funcionamiento de servicios de red como DNS o servidores web.
+       - Routers y Gateways: Los routers y otros dispositivos de interconexión también necesitan direcciones IP fijas para garantizar una conexión estable con otras redes externas. Usar direcciones estáticas en esta zona asegura que los routers mantengan la misma IP pública, lo cual es esencial para la comunicación con el ISP y otros routers en la WAN.
+       - Tráfico Estable: En una WAN, los dispositivos y routers generalmente no cambian con frecuencia, por lo que no es necesario utilizar DHCP. Al tener direcciones fijas, se garantiza una gestión más controlada y predecible del tráfico de red hacia y desde Internet.
 
 
-* **Pruebas de conectividad:** Se realizaron pruebas de conectividad entre dispositivos de la misma VLAN y entre diferentes VLANs, utilizando comandos como ping y tracert. También se comprobó la conectividad con las puertas de enlace y otros servicios.:)
+
+
+* **Pruebas de conectividad:** Se realizaron pruebas de conectividad entre dispositivos de la misma VLAN y entre diferentes VLANs, utilizando comandos como ping. También se comprobó la conectividad con las puertas de enlace y otros servicios:
+  1. Prueba de comunicacion entre dispositivos conectados en la VLAN 40 (PC1 a PC2)
+      ![.](imagenesWiki/vlan40avlan40.jpg)
+
+  2. Prueba de comunicacion entre dispositivos conectados en diferenetnes VLANs en este cado de la 40 a la 55. desde el PC2 hasta Printer0
+     ![.](imagenesWiki/vlan40avlan55.jpg)
+
+  3. ***Show interface trunk***, que muestra qué puertos están configurados como trunks y qué VLANs están permitidas en esos puertos.
+     ![.](imagenesWiki/trunks.jpg)
+
+  4. Conectividad entre el Switch dos y el LAP(access point). Se tiene una tasa de éxito del 100% en el ping hacia 172.23.9.4, lo que significa que la conectividad entre switch2 (IP 172.23.9.3) y el LAP está funcionando perfectamente. 
+      ![.](imagenesWiki/switchlap.jpg)
+
+  5. Concetividad entre diferentes redes, Desde PC1(SOHO) hasta el servidor web (Servers)
+     ![.](imagenesWiki/pcserver.jpg)
+
+  6. Concetividad entre Red soho a default Gateway de red servidores
+      ![.](imagenesWiki/SOHODG.jpg)
+
+ 
+
+
+
+
+
+
+ 
  **fotos**
   * **Se encontraron problemas, como se solucionaron? evidencia de la solución y la prueba del funcionamiento**
 
