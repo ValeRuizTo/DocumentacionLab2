@@ -134,18 +134,23 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
 
 * **Pruebas de conectividad:** Se realizaron pruebas de conectividad entre dispositivos de la misma VLAN y entre diferentes VLANs, utilizando comandos como ping. También se comprobó la conectividad con las puertas de enlace y otros servicios:
   1. Prueba de comunicacion entre dispositivos conectados en la VLAN 40 (PC1 a PC2)
+     
       ![.](imagenesWiki/vlan40avlan40.jpg)
 
   2. Prueba de comunicacion entre dispositivos conectados en diferenetnes VLANs en este cado de la 40 a la 55. desde el PC2 hasta Printer0
+     
      ![.](imagenesWiki/vlan40avlan55.jpg)
 
   3. ***Show interface trunk***, que muestra qué puertos están configurados como trunks y qué VLANs están permitidas en esos puertos.
+     
      ![.](imagenesWiki/trunks.jpg)
 
-  4. Conectividad entre el Switch dos y el LAP(access point). Se tiene una tasa de éxito del 100% en el ping hacia 172.23.9.4, lo que significa que la conectividad entre switch2 (IP 172.23.9.3) y el LAP está funcionando perfectamente. 
+  4. Conectividad entre el Switch dos y el LAP(access point). Se tiene una tasa de éxito del 100% en el ping hacia 172.23.9.4, lo que significa que la conectividad entre switch2 (IP 172.23.9.3) y el LAP está funcionando perfectamente.
+      
       ![.](imagenesWiki/switchlap.jpg)
 
   5. Concetividad entre diferentes redes, Desde PC1(SOHO) hasta el servidor web (Servers)
+     
      ![.](imagenesWiki/pcserver.jpg)
 
   6. Concetividad entre Red soho a default Gateway de red servidores
@@ -153,15 +158,26 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
 
  
 
+  * **Se encontraron diversos problemas al momento de probar la comunicacion entre dispositivos y VLANs:**
 
+    1. El primer problema lo encontramos al intentar comunicar diferentes VLANs en la red SOHO, ya que al hacer ping nunca     recibíamos una respuesta. Tras revisar la configuración de las VLANs, descubrimos que las direcciones IP no estaban        bien asignadas, lo que causaba el fallo de conectividad. Para resolverlo, ajustamos la configuración de las IPs en         cada dispositivo dentro de las VLANs afectadas. La solución completa se puede ver en las fotos incluidas en los            puntos i y ii.
 
+    2. Otro de los problemas que enfrentamos fue con la conectividad del WLC (Wireless LAN Controller). Inicialmente, no       se podía conectar. La solución fue ingresar al servidor y asignarle la IP correspondiente al WLC. Luego, en el WLC,        tuvimos que verificar los puertos y asegurarnos de que el puerto que estaba conectado al switch coincidiera con la         configuración del WLC. El problema radicaba en que el WLC había sido configurado desde una computadora que solo            manejaba la VLAN 20. Uno de los puertos debía coincidir con el puerto donde el switch estaba conectado, pero no lo         habíamos configurado correctamente.
 
+    Una vez solucionamos el problema del puerto, la conectividad seguía sin funcionar. Nos dimos cuenta de que el problema     era que, al crear la configuración, se había generado automáticamente una VLAN de administración, que es la que asigna     la IP al LAP (Lightweight Access Point). Al hacer el cambio, no habíamos ajustado correctamente la VLAN de                 administración, lo que causaba el fallo. Tras corregir esto, el WLC comenzó a funcionar correctamente.
 
+       - **Paso a paso de la solcuion**
+   
+           - ***Acceder al WLC y verificar la configuración:*** Conectarse al WLC mediante su IP desde un navegador o un cliente de administración, y desde ahí, Asegurarse de que el WLC esté configurado correctamente con las VLAN correspondientes. Ademas se debe verificar que el puerto del WLC que está conectado al switch coincida con el puerto configurado en la interfaz del switch. ![.](imagenesWiki/wlc.jpg)
+    Como se puede ver en la imagen la **direccion Ip** del WLC es 172.23.9.2 y su **Default gateway** es 172.23.9.1, cabe resaltar que la direccion IP debe ser estatica, si se usa DCHP la direccion cambia e interrumple la comunicación con el LAP
+            
+           - ***Verificar la VLAN de administración***: Desde el WLC, Asegurarse de que la VLAN de management esté activa y sea la que asigna las IPs al LAP (Lightweight Access Point). En la pestaña de config del LAP en Global dice WLC, la direccion que va en controller desbe ser la dreccion Ip del WLC para que la comunicación sea efectiva.
+          ![.](imagenesWiki/LAP.jpg)
 
- 
- **fotos**
-  * **Se encontraron problemas, como se solucionaron? evidencia de la solución y la prueba del funcionamiento**
+          -***Verificar el DCP en los dispositivos inhalambicos conectados al LAP:*** desde la Tablet PC0, la Laptop0 o el Smartphone0 revisar la  direccion IP asignada por el DHCP y si coincide con la VLAN en la que deberia estar
+          ![.](imagenesWiki/cel.jpg)
 
+    
 * **Verificación del protocolo STP:** Se verificó que el protocolo STP estuviera correctamente configurado para evitar bucles, y se comprobó cuál de los switches fue seleccionado como puente raíz.
   **por qué?**
   * Para hacer la verificación se utiliza el comando **show spanning-tree** que muestra información como La configuración de STP, las VLANs para las cuales está activo, el estado de los puertos (puerto raíz, puerto designado, etc.), el tiempo de convergencia y otros parámetros relevantes **foto**
