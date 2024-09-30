@@ -246,12 +246,240 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
 
 
 
-* **Configuración de enrutamiento:** Se configuraron los protocolos de enrutamiento OSPF o EIGRP en las interfaces necesarias, verificando el correcto enrutamiento de paquetes entre las redes LAN y WAN.
-  **porque es ese y que interfaces usamos**
+* **Configuración de enrutamiento:** Se configuraron los protocolos de enrutamiento  EIGRP en las interfaces necesarias, verificando el correcto enrutamiento de paquetes entre las redes LAN y WAN.
 
+  - El uso de EIGRP (Enhanced Interior Gateway Routing Protocol) en la topología de red se debe a varias razones clave, especialmente en el contexto de su funcionalidad y ventajas. Aquí se detallan algunas de las principales razones para utilizar EIGRP:
+
+      - Mejoras sobre RIP: EIGRP es un protocolo de enrutamiento híbrido que combina características de enrutamiento de distancia y de estado, lo que le permite superar las limitaciones de RIP (Routing Information Protocol).
+      - Convergencia Rápida: EIGRP tiene tiempos de convergencia más rápidos en comparación con otros protocolos de enrutamiento, lo que significa que puede adaptarse más rápidamente a los cambios en la topología de la red. Esto es crítico en entornos donde la disponibilidad y la estabilidad son esenciales.
+      - Métricas Compuestas: EIGRP utiliza una métrica compuesta que incluye ancho de banda, retardo, carga y confiabilidad. Esta flexibilidad permite a los administradores de red influir en la selección de rutas basándose en múltiples criterios, en lugar de depender de un único parámetro. [7]
+      - Máscaras de Subred Variable (VLSM): EIGRP es compatible con VLSM, lo que permite la implementación de subredes de diferentes tamaños en una misma red. En esta topologia fue necesario hacer subneteo VLSM
+      - Classless Inter-Domain Routing (CIDR): Permite la implementación de rutas sin clases, lo que optimiza el uso de direcciones IP.
+      - Configuración Sencilla: EIGRP es relativamente fácil de configurar en comparación con otros protocolos, lo que puede ahorrar tiempo y reducir la complejidad administrativa.
+
+    **Configuración del EIGRP**
+
+       ![.](imagenesWiki/configEIGRP.jpg)
+  - **Paso a paso en la red SOHO**
+ 
+      - Acceder al modo de configuración global:
+        
+                        router> enable
+                        router# configure terminal
+
+      - Habilitar EIGRP: El proceso se inicia con un número de sistema autónomo (AS).
+        
+                        router(config)# router eigrp 1
+ 
+      - Configurar las redes: se deben añadir las redes para que EIGRP las anuncie. es muy importante asegurarse de usar las máscaras de subred correctas según la configuración. Aqui se usan las Ips de las VLANS de todos los espacios de red o sistemas autonomos que se tienen
+   
+                        router(config-router)# network 172.23.0.0 0.0.3.255
+                        router(config-router)# network 172.23.4.0 0.0.3.255
+                        router(config-router)# network 172.23.8.0 0.0.0.255
+                        router(config-router)# network 172.23.9.0 0.0.0.255
+                        router(config-router)# network 200.190.7.0 0.0.0.255
+
+      - Salir del modo de configuración de EIGRP:
+   
+                        router(config-router)# exit
+
+
+    
+
+    **Pruebas del funcionamiento de EIGRP**
+    
+    ![.](imagenesWiki/eigrp.jpg)
+
+    A continuación, se proporciona una descripción y explicación del funcionamiento de los comandos utilizados para            verificar la configuración de EIGRP en el router R_SOHO, así como sus resultados.
+
+    ***1. Configuración de EIGRP***
+       
+              router1#show running-config | section router eigrp
+        
+              router eigrp 1
+    
+              network 172.23.0.0 0.0.3.255
+        
+              network 172.23.4.0 0.0.3.255
+        
+              network 172.23.8.0 0.0.0.255
+        
+              network 172.23.9.0 0.0.0.255
+        
+              network 200.190.7.0
+      - **Descripción:**
+      - router eigrp 1: Indica que el proceso EIGRP está configurado para el número de sistema autónomo (AS) 1.
+      - network: Estas líneas especifican las redes que EIGRP debe anunciar y escuchar. La máscara invertida (wildcard mask) se utiliza para definir las subredes que se incluyen en el proceso EIGRP.
+      - 0.0.3.255 significa que se incluyen todas las direcciones en las dos últimas posiciones de la dirección, permitiendo que las interfaces con direcciones IP en el rango de 172.23.0.0 a 172.23.3.255 se incluyan en el proceso EIGRP.
+      - 0.0.0.255 indica que solo se incluye una dirección IP específica.
+
+     ***2. Interfaces EIGRP Activas***
+         
+
+              router1#show ip eigrp interfaces
+              IP-EIGRP interfaces for process 1
+              
+                                      Xmit Queue   Mean   Pacing Time   Multicast    Pending
+              Interface        Peers  Un/Reliable  SRTT   Un/Reliable   Flow Timer   Routes
+              Fa0/0.20           0        0/0      1236       0/10           0           0
+              Fa0/0.40           0        0/0      1236       0/10           0           0
+              Fa0/0.55           0        0/0      1236       0/10           0           0
+              Fa0/0.99           0        0/0      1236       0/10           0           0
+              Se0/3/0            1        0/0      1236       0/10           0           0
+
+
+
+
+     - **Descripción:**
+     - Interfaz: Muestra las interfaces en las que EIGRP está habilitado.
+     - Peers: Indica el número de vecinos EIGRP en la interfaz.
+     - SRTT (Smooth Round Trip Time): El tiempo promedio que toma un paquete para ir y volver entre el router y su vecino, en milisegundos.
+     - Un/Reliable: Muestra los contadores de paquetes no confiables y confiables.
+     - Multicast Flow Timer: Tiempo de espera para la siguiente transmisión multicast.
+     - Pending Routes: Número de rutas pendientes en la cola de transmisión.
+   
+    ***3. Rutas Aprendidas por EIGRP***
+
+              router1#show ip route eigrp
+                   11.0.0.0/30 is subnetted, 3 subnets
+              D       11.31.12.0 [90/2681856] via 200.190.7.2, 00:30:33, Serial0/3/0
+              D       11.31.12.4 [90/3193856] via 200.190.7.2, 00:30:33, Serial0/3/0
+              D       11.31.12.8 [90/3705856] via 200.190.7.2, 00:30:33, Serial0/3/0
+                   161.130.0.0/28 is subnetted, 1 subnets
+              D       161.130.8.0 [90/3708416] via 200.190.7.2, 00:30:33, Serial0/3/0
+
+
+
+    - **Descripción:**
+    - D: Indica que la ruta es aprendida a través de EIGRP.
+    - [90/2681856]: 90 es la métrica de confianza de EIGRP y 2681856 es el costo total de la ruta.
+    - via 200.190.7.2: La dirección IP del siguiente salto para llegar a la red.
+    - Serial0/3/0: La interfaz a través de la cual se accede a la siguiente salto.
+   
+      ***4. Vecinos de EIGRP***
+            
+            router1#show ip eigrp neighbors
+            IP-EIGRP neighbors for process 1
+            H   Address         Interface      Hold Uptime    SRTT   RTO   Q   Seq
+                                               (sec)          (ms)        Cnt  Num
+            0   200.190.7.2     Se0/3/0        10   00:30:44  40     1000  0   17
+
+
+
+    - **Descripción:**
+    - H: Número de vecino.
+    - Address: Dirección IP del vecino.
+    - Interface: La interfaz del router que conecta con el vecino.
+    - Hold: Tiempo restante para que se mantenga la relación con el vecino.
+    - Uptime: Tiempo que el vecino ha estado activo.
+    - SRTT: Tiempo promedio de ida y vuelta con el vecino.
+    - RTO: Tiempo de espera para retransmitir paquetes.
+    - Q Count: Número de paquetes en cola para el vecino.
+    - Seq Num: Número de secuencia de los paquetes EIGRP.
+   
+      ***5. Tabla de Topología de EIGRP***
+                
+                router1#show ip eigrp topology
+                IP-EIGRP Topology Table for AS 1/ID(200.190.7.1)
+                
+                Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+                       r - Reply status
+                
+                P 11.31.12.0/30, 1 successors, FD is 2681856
+                         via 200.190.7.2 (2681856/2169856), Serial0/3/0
+                P 11.31.12.4/30, 1 successors, FD is 3193856
+                         via 200.190.7.2 (3193856/2681856), Serial0/3/0
+                P 11.31.12.8/30, 1 successors, FD is 3705856
+                         via 200.190.7.2 (3705856/3193856), Serial0/3/0
+                P 161.130.8.0/28, 1 successors, FD is 3708416
+                         via 200.190.7.2 (3708416/3196416), Serial0/3/0
+                P 172.23.0.0/22, 1 successors, FD is 28160
+                         via Connected, FastEthernet0/0.20
+                P 172.23.4.0/22, 1 successors, FD is 28160
+                         via Connected, FastEthernet0/0.40
+                P 172.23.8.0/24, 1 successors, FD is 28160
+                         via Connected, FastEthernet0/0.55
+                P 172.23.9.0/24, 1 successors, FD is 28160
+                         via Connected, FastEthernet0/0.99
+                P 200.190.7.0/24, 1 successors, FD is 2169856
+                         via Connected, Serial0/3/0
+
+
+
+      - **Descripción:**
+      - P: Indica que la ruta es pasiva y está disponible para su uso.
+      - FD (Feasible Distance): Métrica total para alcanzar una ruta.
+      - Successors: Número de rutas sucesoras disponibles para la red especificada.
+      - via: Indica el siguiente salto y la interfaz a través de la cual se puede acceder a esa red.
+        
+
+     
+ **Pruebas del funcionamiento de EIGRP R_servers**
+    
+   ![.](imagenesWiki/eigrpservers.jpg)
+
+   La diferencia principal entre esta configuracion y el paso a paso demostrado anteriormente para la SOHO es en la priemra parte donde se ponen las direcciones IP, pues aca se ponen las VLANS correspondentes a la red de servidores
+    
+ **Pruebas del funcionamiento de EIGRP ISP_bog**
+   ![.](imagenesWiki/eigrpbpgpta.jpg)
+   
+   La diferencia principal entre esta configuracion y el paso a paso demostrado anteriormente para la SOHO es en la priemra parte donde se ponen las direcciones IP, pues aca se ponen las VLANS correspondentes a la red de INTERNET
+ 
 * **Pruebas de servicios web:** Se configuró un servidor HTTP y se verificó que todos los usuarios pudieran acceder a la página web personalizada (dvt.net) desde cualquier dispositivo de la red, utilizando el dominio gestionado por el servidor DNS.
+  
   * configuración de **DNS**
-  * **pruebas**
+      - Configurar el Servidor DNS
+      - Seleccionar el Servidor: se hace clic en el servidor  para abrir la ventana de configuración.
+      - Ir a la Pestaña Config: En la ventana del servidor, selecciona la pestaña "Config" (Configuración).
+      - Activar el Servicio DNS: En el panel izquierdo, se hace clic en "DNS" y se habilita el servicio DNS. Esto teniendo en cuenta que la Ip del servidor es estatica, la pusimos nosotros
+      - Agregar Entradas DNS:
+      - En el campo "Name", se ingresa el nombre del dominio (dvt.net).
+      - En el campo "IP Address", se ingresa la dirección IP correspondiente (161.130.8.2).
+      -  Se hace clic en "Add" para agregar la entrada.
+ 
+  El sistema DNS se encargó de resolver el nombre de dominio "dvt.net" a su respectiva dirección IP. Esto fue crucial para que los dispositivos pudieran comunicarse con el servidor web  de manera transparente para los usuarios. [8]
+  
+  * **prueba funcioamiento servidor web**
+
+   ![.](imagenesWiki/pruebafuncionamientoweb.jpg)
+   ![.](imagenesWiki/pingweb.jpg)
+
+Para garantizar que las conexiones HTTP se realizaran desde el puerto 80 se programo en el js de la pagina web:
+
+                              
+                    // Configurar la ruta principal "/"
+                    HTTPServer.route("/", function(url, res) {
+                        console.log("Solicitud recibida para /");
+                
+                        // Respuesta HTML simple
+                        var htmlContent = "<!DOCTYPE html>" +
+                            "<html lang='es'>" +
+                            "<head>" +
+                            "<meta charset='UTF-8'>" +
+                            "<title>dvt.net</title>" +
+                            "<style>" +
+                            "body { background-color: #f0e6e6; color: #000000; font-family: 'Roboto', sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; }" +
+                            "h1 { font-size: 2.5rem; margin: 0; }" +
+                            "p { font-size: 1.5rem; margin-top: 20px; }" +
+                            "</style>" +
+                            "</head>" +
+                            "<body>" +
+                            "<h1>dvt.net</h1>" +
+                            "<p>Darek Aljuri, Valentina Ruiz, Tomás Barrios</p>" +
+                            "</body>" +
+                            "</html>";
+                            
+                        // Enviar la respuesta HTML
+                        res.send(htmlContent);
+                    });
+                
+                    // Iniciar el servidor en el puerto 80
+                    HTTPServer.start(80);
+                
+                    console.log("Servidor iniciado en el puerto 80");
+
+  
+
 
 ## 4. Puntos solicitados en la sección de Resultados y Análisis
 1) Responda a cada una de las preguntas guías del diseño estructurado propuesta en clase y documente 
@@ -284,5 +512,9 @@ Packet Tracer**.
 
 5: A. Sanchez, "Port Address Translation (PAT): Ejemplos," ADSL FAQS, Jul. 11, 2020. [En línea]. Disponible en: https://adslfaqs.com/port-address-translation-pat-ejemplos/.
 
-6: [1] "Telnet," Wikipedia, The Free Encyclopedia. [En línea]. Disponible: https://es.wikipedia.org/wiki/Telnet. 
+6: "Telnet," Wikipedia, The Free Encyclopedia. [En línea]. Disponible: https://es.wikipedia.org/wiki/Telnet. 
+
+7:  Cisco, "Enhanced Interior Gateway Routing Protocol (EIGRP)," Cisco, [En línea]. Disponible: https://www.cisco.com/c/es_mx/support/docs/ip/enhanced-interior-gateway-routing-protocol-eigrp/13669-1.html. 
+
+8: Cloudflare, “What is DNS?,” Cloudflare, 2023. [Enlace: https://www.cloudflare.com/es-es/learning/dns/what-is-dns/].
 
