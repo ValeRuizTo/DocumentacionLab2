@@ -155,6 +155,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
      ![.](imagenesWiki/pcserver.jpg)
 
   6. Concetividad entre Red soho a default Gateway de red servidores
+     
       ![.](imagenesWiki/SOHODG.jpg)
 
  
