@@ -6,6 +6,7 @@
 En este laboratorio, se busca afianzar los conceptos fundamentales de redes, tales como LAN, WLAN, VLAN, IPv4 y Subneteo, a través de la construcción y configuración de una red SOHO en un entorno emulado con Cisco Packet Tracer. Se implementarán y configurarán servicios esenciales como DHCP, DNS y NAT, asegurando una eficiente asignación de direcciones IP. Asimismo, se establecerán protocolos de enrutamiento EIGRP u OSPF en las interfaces requeridas, permitiendo el correcto enrutamiento de paquetes IP a través de la red WAN. Además, se configurará un servidor HTTP para alojar contenidos web accesibles desde cualquier dispositivo dentro de la red. Durante el desarrollo del laboratorio, se simulará el flujo de datos y se analizará su comportamiento, garantizando que todos los servicios funcionen correctamente.
 ## 2. Topología de red
 ![](imagenesWiki/topologiaredfuncionando.png)
+
 La topología mostrada es una red SOHO (Small Office Home Office) con interconexión a Internet y servidores remotos, los componentes principales de esta red son 
 
 ### Zona SOHO (en verde):
@@ -76,7 +77,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
 
 
 
-* **Configuración de dispositivos:** Se aplicaron configuraciones básicas a los switches y router, como la asignación de direcciones IP a las interfaces dependiendo del Subneteo realizado anteriormente y configuración de servicios como DHCP, DNS y NAT. Además, se configuró el WLC y el LAP (punto de acceso inalámbrico) para la red WLAN. La documentación de los routers y switches están en un **archivo .txt adjunto** en el repositorio y en la tarea en teams.
+* **Configuración de dispositivos:** Se aplicaron configuraciones básicas a los switches y router, como la asignación de direcciones IP a las interfaces dependiendo del Subneteo realizado anteriormente y configuración de servicios como DHCP, DNS y NAT. Además, se configuró el WLC y el LAP (punto de acceso inalámbrico) para la red WLAN. La documentación de los routers y switches están en un **archivo .txt adjunto** en el repositorio en la carpeta config y en la tarea en teams.
 
 
 * **Asignación y verificación de IPs:** Se verificó que las direcciones IP fueran asignadas correctamente a todos los dispositivos de la red. Se utilizaron comandos TCP/IP para comprobar la conectividad entre los nodos.
@@ -168,14 +169,18 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
 
        - **Paso a paso de la solcuion**
    
-           - ***Acceder al WLC y verificar la configuración:*** Conectarse al WLC mediante su IP desde un navegador o un cliente de administración, y desde ahí, Asegurarse de que el WLC esté configurado correctamente con las VLAN correspondientes. Ademas se debe verificar que el puerto del WLC que está conectado al switch coincida con el puerto configurado en la interfaz del switch. ![.](imagenesWiki/wlc.jpg)
+           - ***Acceder al WLC y verificar la configuración:*** Conectarse al WLC mediante su IP desde un navegador o un cliente de administración, y desde ahí, Asegurarse de que el WLC esté configurado correctamente con las VLAN correspondientes. Ademas se debe verificar que el puerto del WLC que está conectado al switch coincida con el puerto configurado en la interfaz del switch.
+             ![.](imagenesWiki/wlc.jpg)
+             
     Como se puede ver en la imagen la **direccion Ip** del WLC es 172.23.9.2 y su **Default gateway** es 172.23.9.1, cabe resaltar que la direccion IP debe ser estatica, si se usa DCHP la direccion cambia e interrumple la comunicación con el LAP
             
            - ***Verificar la VLAN de administración***: Desde el WLC, Asegurarse de que la VLAN de management esté activa y sea la que asigna las IPs al LAP (Lightweight Access Point). En la pestaña de config del LAP en Global dice WLC, la direccion que va en controller desbe ser la dreccion Ip del WLC para que la comunicación sea efectiva.
-          ![.](imagenesWiki/LAP.jpg)
+    
+    ![.](imagenesWiki/LAP.jpg)
 
           -***Verificar el DCP en los dispositivos inhalambicos conectados al LAP:*** desde la Tablet PC0, la Laptop0 o el Smartphone0 revisar la  direccion IP asignada por el DHCP y si coincide con la VLAN en la que deberia estar
-          ![.](imagenesWiki/cel.jpg)
+
+     ![.](imagenesWiki/cel.jpg)
 
     
 * **Verificación del protocolo STP:** Se verificó que el protocolo STP estuviera correctamente configurado para evitar bucles, y se comprobó cuál de los switches fue seleccionado como puente raíz.
@@ -183,6 +188,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
     * Para hacer la verificación se utiliza el comando **show spanning-tree** que muestra información como La configuración de STP, las VLANs para las cuales está activo, el estado de los puertos (puerto raíz, puerto designado, etc.), el tiempo de convergencia y otros parámetros relevantes
     
     * la salida del comando show spanning-tree muestra que el switch actual (sw1_Intranet) es el puente raíz para varias VLANs
+      
                                   ![.](imagenesWiki/spanningtree.jpg)
   
 
@@ -260,6 +266,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
     **Configuración del EIGRP**
 
        ![.](imagenesWiki/configEIGRP.jpg)
+    
   - **Paso a paso en la red SOHO**
  
       - Acceder al modo de configuración global:
