@@ -548,23 +548,149 @@ Para garantizar que las conexiones HTTP se realizaran desde el puerto 80 se prog
 
 **Subneteo y su tabla**
 
+   ![.](imagenesWiki/subneteo.jpg)
+
+
 **Tabla de direccionamiento de red**
 
    ![.](imagenesWiki/tabladireccionamiento.jpg)
 
 
 
+4) ***análisis y proceso de configuración de los servicios de red requeridos para el correcto funcionamiento de la red empresarial.***
 
-3) análisis y proceso de configuración de los servicios de red requeridos para el correcto 
-funcionamiento de la red empresarial.
+- Identificación de los Servicios y protocolos necesarios:
+    - VLANs (Virtual Local Area Network):
+        - Segmentación lógica de la red en subredes.
+        - Se configuraron para separar el tráfico entre dispositivos.
+          
+- STP (Spanning Tree Protocol):
+    - Protocolo para evitar bucles en la red de switches y seleccionar un Root Bridge.
+- DNS (Domain Name System):
+    - Protocolo para traducir nombres de dominio a direcciones IP.
+    - Configuración del servidor DNS para gestionar el nombre de dominio (dvt.net).
+- DHCP (Dynamic Host Configuration Protocol):
+    - Protocolo para asignar dinámicamente direcciones IP a los dispositivos finales (PCs, móviles).
+      
+- NAT (Network Address Translation):
+    - Traducción de direcciones IP privadas a una dirección pública para permitir el acceso a Internet.
+    - Configuración de PAT.
+    - 
+- HTTP/HTTPS (HyperText Transfer Protocol / Secure):
+    - Protocolo para acceder a la página web personalizada alojada en el servidor web.
+    - Conexiones realizadas desde el puerto 80 (HTTP).
+      
+- Telnet:
+    - Protocolo para acceder remotamente a los routers y switches mediante administración remota.
+      
+- EIGRP (Enhanced Interior Gateway Routing Protocol) o OSPF (Open Shortest Path First):
+    - Protocolo de enrutamiento dinámico configurado en las interfaces necesarias para permitir la comunicación entre diferentes subredes.
+      
+- TCP/IP (Transmission Control Protocol / Internet Protocol):
+    - Protocolo principal de comunicación en la red. Utilizado para verificar conectividad entre dispositivos con comandos como ping o traceroute. [9]
+      
+- WLC (Wireless LAN Controller) y LAP (Lightweight Access Point):
+    - Controlador y puntos de acceso ligeros para gestionar la red inalámbrica (WLAN) de forma centralizada.
 
-4) Evaluación del flujo bidireccional de datos generado al acceder a la página alojada en el servidor Web por los 
-nodos terminales (PCs y dispositivos móviles) de las diferentes VLANs que conforman la topología, utilizando el servicio DNS. Como también, al verificar la conectividad de un PCs a otro y de un 
-PC al Gateway. **Justifique su análisis utilizando capturas con el simulador y los filtros de paquetes de Cisco 
-Packet Tracer**.
+
+5) ***Evaluación del flujo bidireccional de datos generado al acceder a la página alojada en el servidor Web por los nodos terminales (PCs y dispositivos móviles) de las diferentes VLANs que conforman la topología, utilizando el servicio DNS***
+Anteriormente se han presentado pruebas que demuestran el correcto funcionamiento de la conectividad entre los nodos terminales, el acceso al servidor web y la resolución de nombres mediante DNS. A continuación, se procederá con el análisis detallado del tráfico de red, utilizando capturas de paquetes para verificar el flujo bidireccional de datos y asegurar el correcto enrutamiento y procesamiento de solicitudes en la red:
+
+**Descripción de la secuencia de comunicación:**
+PC1 usa DNS para resolver el nombre de dominio del Web_Server a su dirección IP.
+STP asegura que no haya bucles en la red mientras los switches gestionan la topología de red.
+EIGRP permite a los routers identificar las mejores rutas para enviar paquetes entre PC1 y el Web_Server.
+TCP establece una conexión confiable entre PC1 y el Web_Server para garantizar que los datos se transfieran de manera ordenada y sin errores.
+HTTP es utilizado por PC1 para solicitar y recibir contenido web desde el Web_Server.
+
+   ![.](imagenesWiki/Protocolos1PC1WebServer.jpg)
+   
+En la imagen se muestra el proceso de resolución de DNS para un cliente (PC1) que está realizando una consulta de DNS hacia un servidor DNS. Aquí está el análisis de lo que está ocurriendo:
+
+- ***Proceso inicial:***
+
+El dispositivo PC1 está enviando una consulta DNS para resolver un nombre de dominio a una dirección IP. La consulta utiliza el puerto de origen 1026 y está dirigida al puerto 53 (el puerto estándar de DNS).
+La dirección IP de origen es 172.23.0.6 (correspondiente a PC1) y la de destino es 161.130.8.2 (correspondiente al servidor DNS).
+La capa de enlace muestra que el paquete está viajando sobre FastEthernet.
+Evento principal:
+
+A la derecha se puede ver una lista de eventos que detalla cómo los paquetes están viajando a través de la red, pasando por varios dispositivos intermedios. Entre los dispositivos involucrados están los switches, routers, y paneles de interconexión.
+Hay una gran cantidad de eventos DNS, lo que indica que esta consulta está siendo enrutada a través de varias partes de la red, posiblemente por el backbone o la WAN, hacia el servidor DNS.
+Dispositivos importantes:
+
+Se pueden observar routers como el R_SOHO y dispositivos ISP involucrados en el enrutamiento de los paquetes.
+El servidor web parece estar en una DMZ (SW_DMZ), lo cual es una zona desmilitarizada para alojar servicios accesibles desde fuera de la red interna.
+La ruta de los paquetes incluye segmentos que usan EIGRP como protocolo de enrutamiento, lo cual facilita la ruta hacia el servidor DNS y el servidor web.
+Protocolo de enrutamiento EIGRP:
+
+En algunos puntos de la ruta (por ejemplo, ISP_TX), se está utilizando el protocolo de enrutamiento EIGRP, lo cual permite la selección de la mejor ruta entre las posibles para llegar al servidor DNS.
+
+- ***Resumen:***
+Lo que está ocurriendo aquí es una consulta de DNS iniciada por PC1. Esta consulta pasa a través de varios dispositivos de red, como switches, routers y dispositivos de interconexión, utilizando el protocolo EIGRP en algunos saltos para facilitar el enrutamiento. El objetivo final es que el servidor DNS resuelva la consulta y responda a PC1 con la dirección IP correspondiente al nombre de dominio solicitado.
+   
+
+   ![.](imagenesWiki/Protocolos2PC1WebServer.jpg)
+
+En esta imagen se muestra el proceso de respuesta de un servidor DNS al cliente (PC1) a través del router R_SOHO. Aquí está el análisis detallado de lo que está ocurriendo:
+
+ - ***Proceso inicial:***
+
+El dispositivo R_SOHO está recibiendo un paquete de PC1. El paquete es de tipo DNS, donde la dirección IP de origen es 172.23.0.6 (PC1) y la dirección IP de destino es 161.130.8.2 (servidor DNS).
+En la sección de capas, el paquete pasa por varias capas del modelo OSI, donde se destaca el uso de la capa de red (IP) y la capa de enlace (Dot1q).
+Evento principal:
+
+El evento más destacado es la recepción del paquete en el puerto FastEthernet0/0 del router R_SOHO.
+La información de la cabecera IP muestra que el paquete de respuesta de DNS está dirigido hacia la dirección IP 161.130.8.2.
+Enrutamiento y procesamiento:
+
+A la derecha, se puede observar la lista de eventos que muestran cómo el paquete está siendo procesado y enrutado a través de diferentes dispositivos de la red.
+La serie de eventos indica el flujo de tráfico a través de varios routers y servidores, como ISP_BOG, ISP_NET, R_Servers, y finalmente hacia el servidor web.
+Capas y protocolos involucrados:
+
+En la capa 2, se muestra que el paquete está utilizando un encabezado Dot1q, que indica que se está utilizando VLAN tagging para el tráfico a través de la red.
+En la capa 3, se observa que el paquete tiene un encabezado IP con la dirección IP fuente de PC1 y la dirección IP de destino hacia el servidor DNS.
+Importancia de los eventos:
+
+La lista de eventos proporciona una visión clara de cómo el paquete se mueve a través de la red, pasando por múltiples dispositivos y logrando la conectividad entre PC1 y el servidor DNS.
+Los eventos relacionados con el tráfico DNS se repiten, lo que sugiere que la consulta y respuesta de DNS están siendo gestionadas adecuadamente en la red.
+
+- ***Resumen:***
+En esta imagen, se está mostrando la recepción de un paquete DNS en el router R_SOHO proveniente de PC1. El paquete es procesado y enrutado a través de varios dispositivos de red, y se puede observar el uso de etiquetas VLAN en la capa de enlace. Los eventos listados demuestran la trayectoria del paquete desde su origen hasta el servidor DNS, lo que resalta la conectividad y el correcto funcionamiento del servicio DNS en la topología de red.
+
+   ![.](imagenesWiki/Protocolos3PC1WebServer.jpg)
+
+Una vez que la conexión TCP está establecida, PC1 utiliza HTTP para solicitar y recibir la página web desde el Web_Server.
+Descripción de la secuencia de comunicación:
+PC1 usa DNS para resolver el nombre de dominio del Web_Server a su dirección IP.
+STP asegura que no haya bucles en la red mientras los switches gestionan la topología de red.
+EIGRP permite a los routers identificar las mejores rutas para enviar paquetes entre PC1 y el Web_Server.
+TCP establece una conexión confiable entre PC1 y el Web_Server para garantizar que los datos se transfieran de manera ordenada y sin errores.
+HTTP es utilizado por PC1 para solicitar y recibir contenido web desde el Web_Server.
+
+
+La conectividad entre los nodos terminales de diferentes VLANs, el acceso al servidor web mediante DNS y la verificación del tráfico de red mediante capturas de paquetes, evidencian que la red está configurada correctamente. Las capturas y el análisis de los paquetes reflejan que tanto la resolución de nombres como el acceso a servicios web están funcionando de manera óptima en la topología.
 
 ## 5. Retos presentados durante el desarrollo de la práctica
+
+Presentamos distintos retos durante el desarrollo del laboratorio, el reto más grande que afrontamos fue el WLC y su conexión  al LAP, al principio cuando intentábamos guardar la configuración en el WLC, este se quedaba en un bucle cargando y nunca se terminaba de cargar, para esto lo sacamos de la red SOHO y lo configuramos solo con un computador, cuando sobrepasamos este reto después no llego otro peor, el cual fue la configuración correcta para que el LAP pudiera darles la VLAN que habíamos configurado a unos dispositivos de manera inalámbrica y que además estos dispositivos consiguieron sus IPs mediante DHCP. Seguimos viendo videos, tutoriales, consejos y nada nos servía, conseguimos configurarlo exactamente igual que estos recursos pero no funcionaba en el LAP, decidimos borrar el WLC original y poner otro, por si esto era el error. Cuando estábamos configurando nuevamente el WLC nos dimos cuenta que no estábamos indicando el port correcto, este cambio toco hacerlo tanto en la WLAN creada como en el management que viene por default en el WLC y además de esto en el Server0 donde teníamos la asignación de los DHCPs, no nos habíamos dado cuenta que tambien teniamos que poner la IP del WLC y las DHCPs creadas para que estas tuvieran efecto, después de hacer estos cambios logramos que por fin el LAP funcionara, después fue solo cambiar los dispositivos wireless para que pudieran conectarse a dicha red WLAN proporcionada por el LAP.
+
 ## 6. Conclusiones y recomendaciones
+
+1. Optimización en la asignación de IPs con DHCP
+  La implementación de DHCP en la red SOHO automatiza la asignación de direcciones IP, minimizando errores humanos y simplificando la gestión. Esto resulta especialmente útil en entornos dinámicos con dispositivos móviles, garantizando que cada dispositivo reciba una configuración de red adecuada. Pero es importante resaltar que en los servidores o en el WLC no se puede utilizar porque la comunicacion depende de que los dispositivos tengan siempre sus direcciones IP
+
+2. Mejora de la conectividad con NAT
+  El uso de NAT (Network Address Translation) permite a los dispositivos con IPs privadas acceder a Internet mediante una única IP pública. Esta técnica optimiza el uso de direcciones IP y añade seguridad al ocultar las IPs internas, facilitando la comunicación entre la red local y el exterior.
+
+3. Convergencia rápida y enrutamiento eficiente con EIGRP
+  La configuración de EIGRP entre los routers promueve una propagación rápida de rutas y una convergencia eficaz ante fallas. Utilizando métricas avanzadas, EIGRP asegura que el tráfico fluya por las mejores rutas disponibles, mejorando el rendimiento de la red.
+
+4. Prevención de bucles y estabilidad de red con STP
+  STP (Spanning Tree Protocol) es esencial para evitar bucles en redes con múltiples switches. Este protocolo activa solo una ruta hacia cada destino, permitiendo la reactivación de enlaces redundantes en caso de fallas, lo que contribuye a la estabilidad general de la red. [10]
+
+5. Escalabilidad y mantenimiento eficiente
+  La combinación de DHCP, EIGRP y STP crea una infraestructura escalable y fácil de mantener. Esto permite la expansión de la red con mínima intervención manual, optimizando el rendimiento y la gestión de recursos.
+
 
 ## 7. Referencias 
 1: Cisco, "Cisco Catalyst 2960 Series Switches Data Sheet," Cisco, [En línea]. Disponible en: https://www.cisco.com/c/en/us/products/collateral/switches/catalyst-2960-series-switches/product_data_sheet0900aecd806b0bd8.html
@@ -582,4 +708,8 @@ Packet Tracer**.
 7:  Cisco, "Enhanced Interior Gateway Routing Protocol (EIGRP)," Cisco, [En línea]. Disponible: https://www.cisco.com/c/es_mx/support/docs/ip/enhanced-interior-gateway-routing-protocol-eigrp/13669-1.html. 
 
 8: Cloudflare, “What is DNS?,” Cloudflare, 2023. [Enlace: https://www.cloudflare.com/es-es/learning/dns/what-is-dns/].
+
+9: Avast. "What is TCP/IP?" Avast, [en linea]. Disponible: https://www.avast.com/es-es/c-what-is-tcp-ip. 
+
+10: CCNA Desde Cero. "Spanning Tree Protocol (STP): ¿Cómo funciona?" CCNA Desde Cero, [En linea]. Disponible: https://ccnadesdecero.es/spanning-tree-protocol-stp-como-funciona/. 
 
