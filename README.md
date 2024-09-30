@@ -240,7 +240,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
              
                    password: cisco
 
-        -paso 3: revisar resultado, si aparece el prompt del dispositivo al que se queria acceder entonces fue exitoso.
+       - Paso 3: revisar resultado, si aparece el prompt del dispositivo al que se queria acceder entonces fue exitoso. Esto se puede probar en toda la red SOHO
     
         ![.](imagenesWiki/telnetrouter.jpg)
 
