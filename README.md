@@ -32,11 +32,11 @@ Estos routers permiten la comunicación entre la red SOHO y servidores externos.
 Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2960-24TT), que ofrece servicios externos.
 
 ## 3. Síntesis de la metodología y resultados de configuración: 
-* **Montaje de la topología:** Utilizando el cableado estructurado y los modelos de dispositivos indicados (Switches Cisco 2960, Router Cisco 2811 (Routers a los cuales se les agrego el modulo WIC-2T para permitir conexiones seriales, es decir para poder conectar multiples routers entre si para poder similar la WAN del internet), WLC 3504 y LAP 3702i), se recreó la topología de red en Cisco Packet Tracer.
+* **Montaje de la topología:** Utilizando el cableado estructurado y los modelos de dispositivos indicados (Switches Cisco 2960, Router Cisco 2811 (Routers a los cuales se les agrego el módulo WIC-2T para permitir conexiones seriales, es decir para poder conectar múltiples routers entre sí para poder similar la WAN del internet), WLC 3504 y LAP 3702i), se recreó la topología de red en Cisco Packet Tracer
   
   ![.](imagenesWiki/CableadoEstructuradoFoto1Nuevo.png)
   
- El cableado estructurado realizado se hizo siguiendo las indicaciones en clase y las lecturas. Todos los computadores fueron conectados a los patch panels A y B, para esto se conectaron los   punchdowns A a el patch panel A y los punchdowns B y el patch panel B, esto por las normas impuestas dentro de las lecturas, siendo las A para la red_unisabana y las B para la red SOHO que se montó para este laboratorio. Se montaron dispositivos extras en nuevos racks y mesas para poder cumplir lo que pide el laboratorio y se utilizaron los 3 primeros switches del cableado para la topologia del SOHO.
+ El cableado estructurado realizado se hizo siguiendo las indicaciones en clase y las lecturas. Todos los computadores fueron conectados a los patch panels A y B, para esto se conectaron los   punchdowns A al patch panel A y los punchdowns B y el patch panel B, esto por las normas impuestas dentro de las lecturas, siendo las A para la red_unisabana y las B para la red SOHO que se montó para este laboratorio. Se montaron dispositivos extras en nuevos racks y mesas para poder cumplir lo que pide el laboratorio y se utilizaron los 3 primeros switches del cableado para la topología del SOHO.
 
 ![.](imagenesWiki/CableadoEstructuradoFoto2.png)
 
@@ -44,7 +44,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
 
 ![.](imagenesWiki/CableadoEstructuradoFoto3.png)
 
- Se puede evidenciar el proceso del cableado realizado en la sala de computación. Solo 4 computadores están funcionando debido a que en la topologiá pedida para el laboratorio solo disponía de 4 computadores y como se reutilizo el primer switch se desconectaron los otros computadores a este para que no impidiera en conseguir la topologiá deseada.
+  Se puede evidenciar el proceso del cableado realizado en la sala de computación. Solo 4 computadores están funcionando debido a que en la topología pedida para el laboratorio solo disponía de 4 computadores y como se reutilizo el primer switch se desconectaron los otros computadores a este para que no impidiera en conseguir la topología deseada.
   
 * **Esquema de direccionamiento IPv4:** Se diseñó un esquema de direccionamiento basado en los requerimientos de las VLAN, asignando rangos de direcciones según la cantidad de dispositivos. Se realizó el Subneteo y se construyó una tabla de direccionamiento para toda la topología, teniendo en cuenta que las VLANs 20 y 40 requieren 1022 clientes cada una, mientras que las VLANs 99 y 55, requieren 254 clientes cada una y que la  zona de servidores  requiere 10 hosts
 
@@ -65,7 +65,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
 
 
   * Para ver la configuración de interfaces:
-      - ***show running-config | section interface:*** Este comando revela la configuración de las interfaces del dispositivo. Aquí se detallan las interfaces con configuraciones relacionadas con las VLANs, los puertos en modo acceso y los enlaces troncales. Por esta reazon el comando solo se va a usar en la red SOHO donde hay VLANS asignadas
+      - ***show running-config | section interface:*** Este comando revela la configuración de las interfaces del dispositivo. Aquí se detallan las interfaces con configuraciones relacionadas con las VLANs, los puertos en modo acceso y los enlaces troncales. Por esta razón el comando solo se va a usar en la red SOHO donde hay VLANS asignadas
   
   - Enlaces troncales: Los puertos Fa0/1, Fa0/2, y Gi0/1 están configurados como troncales, transportando múltiples VLANs, lo cual es típico en una red donde se requiere que varias VLANs pasen por una única interfaz entre switches o entre un switch y un router.
   - Puertos de acceso: Los puertos Fa0/3, Fa0/4 y Fa0/5 están configurados en modo acceso, cada uno vinculado a una VLAN específica (40, 20 y 55 respectivamente), lo que los conecta a dispositivos que solo necesitan pertenecer a una única VLAN.
@@ -83,10 +83,10 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
 * **Asignación y verificación de IPs:** Se verificó que las direcciones IP fueran asignadas correctamente a todos los dispositivos de la red. Se utilizaron comandos TCP/IP para comprobar la conectividad entre los nodos.
   * **¿Se requiere asignación dinámica y/o estática? ¿Dónde? ¿Traducción de direcciones de forma dinámica y/o estático y/o por puertos? ¿En qué terminales se deben configurar los servicios requeridos?**
    * configuración de **NAT**:
-     1. ***Conservación de direcciones IP:*** En una red SOHO como la que se tiene, los dispositivos internos usan direcciones IP privadas (la red  SOHO usa  172.23.0.0), que no son válidas en Internet. NAT actua como un traductor entre direcciones publicas y privadas para que asi, desde la soho aque tiene una direccion piblica se pueda acceder al internet y posteriormente a la red de servidores, que ambos son publicos. En este caso se usó PAT (Port Address Translation), "que es una extensión a la traducción de direcciones de red (NAT), que permite que varios dispositivos en una red de área local (LAN) se puedan asignar a una sola direccion IP publica" [5].
+     1.  ***Conservación de direcciones IP:*** En una red SOHO como la que se tiene, los dispositivos internos usan direcciones IP privadas (la red  SOHO usa  172.23.0.0), que no son válidas en Internet. NAT actúa como un traductor entre direcciones públicas y privadas para que así, desde la soho que tiene una dirección pública se pueda acceder al internet y posteriormente a la red de servidores, que ambos son públicos. En este caso se usó PAT (Port Address Translation), "que es una extensión a la traducción de direcciones de red (NAT), que permite que varios dispositivos en una red de área local (LAN) se puedan asignar a una sola dirección IP publica" [5].
         - ¿Por Qué PAT?
           
-            En la topología, donde hay varios dispositivos en la red SOHO (172.23.0.0/16) que necesitan acceder a Internet, PAT es una excelente solución porque permite que todos los dispositivos de la red SOHO utilicen una sola dirección IP pública (o un pequeño rango de IPs públicas) para acceder a Internet. Los dispositivos compartirán la dirección IP pública del router de la zona de interconexión WAN (11.31.12.0) cuando se conecten a Internet. En la topologia el servicio de PAT está configurado en el router de la red WAN (Cisco 2811), que traduce las direcciones IP privadas de la red SOHO a la dirección IP pública utilizada para acceder a Internet."
+            En la topología, donde hay varios dispositivos en la red SOHO (172.23.0.0/16) que necesitan acceder a Internet, PAT es una excelente solución porque permite que todos los dispositivos de la red SOHO utilicen una sola dirección IP pública (o un pequeño rango de IPs públicas) para acceder a Internet. Los dispositivos compartirán la dirección IP pública del router de la zona de interconexión WAN (11.31.12.0) cuando se conecten a Internet. En la topología el servicio de PAT está configurado en el router de la red WAN (Cisco 2811), que traduce las direcciones IP privadas de la red SOHO a la dirección IP pública utilizada para acceder a Internet."
 
         - ¿Cómo funciona PAT?
           
@@ -94,18 +94,18 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
 
           *Asignación de puertos:* Para diferenciar el tráfico de cada dispositivo dentro de la red, el router cambia los números de puerto en los encabezados de los paquetes TCP/UDP. Esto permite que muchos dispositivos compartan una única dirección IP pública, ya que           cada conexión queda identificada por una combinación de la dirección IP pública y el puerto único asignado a cada dispositivo.
           
-     2.  ***Interconexión WAN:*** En la topología, se estan utilizando routers para conectar varios dispositivos a la red del ISP. NAT permite que los routers gestionen múltiples conexiones internas hacia el exterior sin conflictos de dirección IP, facilitando la conectividad hacia servicios externos, como los servidores en la zona azul.
+     2.  ***Interconexión WAN:*** En la topología, se están utilizando routers para conectar varios dispositivos a la red del ISP. NAT permite que los routers gestionen múltiples conexiones internas hacia el exterior sin conflictos de dirección IP, facilitando la conectividad hacia servicios externos, como los servidores en la zona azul.
     
      3.  ***Seguridad:*** NAT actúa como una capa de protección, ya que oculta las direcciones IP internas de la red SOHO. Esto significa que desde el exterior (Internet) no se puede acceder directamente a las máquinas en la red interna sin una configuración explícita.
 
 
-  * Configuración de **DHCP**, asignacion **Dinamica** 
+  * Configuración de **DHCP**, asignación **Dinámica**  
     
     Se usa DHCP en la red SOHO y no en las otras redes debido a las diferentes necesidades de cada zona:
     
     1. ***Red SOHO (172.23.0.0):***
               
-       La red SOHO está compuesta por dispositivos como PCs, laptops, tablets, impresoras y otros dispositivos que pertenecen a un entorno de oficina o hogar. Este esta configurado en el Server 0, es un servidor que asigna direcciones IP automáticamente a los dispositivos, esto se hace por las siguientes razones :
+       La red SOHO está compuesta por dispositivos como PCs, laptops, tablets, impresoras y otros dispositivos que pertenecen a un entorno de oficina o hogar. Este está configurado en el Server 0, es un servidor que asigna direcciones IP automáticamente a los dispositivos, esto se hace por las siguientes razones :
          
        - Facilidad y Flexibilidad: Los dispositivos que entran y salen de la red con frecuencia, como tablets, smartphones o laptops, necesitan una forma flexible de obtener una dirección IP sin tener que                configurarla manualmente. DHCP facilita esto, ya que asigna direcciones IP dinámicamente sin intervención del usuario.
        - Configuración Centralizada: El servidor DHCP en la red SOHO centraliza la asignación de IPs, DNS y puerta de enlace predeterminada, lo que hace que la administración sea más simple y eficiente para los          administradores de la red.
@@ -113,7 +113,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
 
         ![.](imagenesWiki/dchpsoho.jpg)
 
-  * Asignación **Estatica**
+  * Asignación **Estática**
     
     2. ***Red de Servidores (161.130.8.0):***
               
@@ -134,11 +134,11 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
 
 
 * **Pruebas de conectividad:** Se realizaron pruebas de conectividad entre dispositivos de la misma VLAN y entre diferentes VLANs, utilizando comandos como ping. También se comprobó la conectividad con las puertas de enlace y otros servicios:
-  1. Prueba de comunicacion entre dispositivos conectados en la VLAN 40 (PC1 a PC2)
+  1. Prueba de comunicación entre dispositivos conectados en la VLAN 40 (PC1 a PC2)
      
       ![.](imagenesWiki/vlan40avlan40.jpg)
 
-  2. Prueba de comunicacion entre dispositivos conectados en diferenetnes VLANs en este cado de la 40 a la 55. desde el PC2 hasta Printer0
+  2. Prueba de comunicación entre dispositivos conectados en diferentes VLANs en este caso de la 40 a la 55. desde el PC2 hasta Printer0
      
      ![.](imagenesWiki/vlan40avlan55.jpg)
 
@@ -150,17 +150,17 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
       
       ![.](imagenesWiki/switchlap.jpg)
 
-  5. Concetividad entre diferentes redes, Desde PC1(SOHO) hasta el servidor web (Servers)
+  5. Conectividad entre diferentes redes, Desde PC1(SOHO) hasta el servidor web (Servers)
      
      ![.](imagenesWiki/pcserver.jpg)
 
-  6. Concetividad entre Red soho a default Gateway de red servidores
+  6. Conectividad entre Red soho a default Gateway de red servidores
      
       ![.](imagenesWiki/SOHODG.jpg)
 
  
 
-  * **Se encontraron diversos problemas al momento de probar la comunicacion entre dispositivos y VLANs:**
+  * **Se encontraron diversos problemas al momento de probar la comunicación entre dispositivos y VLANs:**
 
     1. El primer problema lo encontramos al intentar comunicar diferentes VLANs en la red SOHO, ya que al hacer ping nunca     recibíamos una respuesta. Tras revisar la configuración de las VLANs, descubrimos que las direcciones IP no estaban        bien asignadas, lo que causaba el fallo de conectividad. Para resolverlo, ajustamos la configuración de las IPs en         cada dispositivo dentro de las VLANs afectadas. La solución completa se puede ver en las fotos incluidas en los            puntos i y ii.
 
@@ -168,18 +168,18 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
 
     Una vez solucionamos el problema del puerto, la conectividad seguía sin funcionar. Nos dimos cuenta de que el problema     era que, al crear la configuración, se había generado automáticamente una VLAN de administración, que es la que asigna     la IP al LAP (Lightweight Access Point). Al hacer el cambio, no habíamos ajustado correctamente la VLAN de                 administración, lo que causaba el fallo. Tras corregir esto, el WLC comenzó a funcionar correctamente.
 
-       - **Paso a paso de la solcuion**
+       - **Paso a paso de la solución**
    
-           - ***Acceder al WLC y verificar la configuración:*** Conectarse al WLC mediante su IP desde un navegador o un cliente de administración, y desde ahí, Asegurarse de que el WLC esté configurado correctamente con las VLAN correspondientes. Ademas se debe verificar que el puerto del WLC que está conectado al switch coincida con el puerto configurado en la interfaz del switch.
+           - ***Acceder al WLC y verificar la configuración:*** Conectarse al WLC mediante su IP desde un navegador o un cliente de administración, y desde ahí, Asegurarse de que el WLC esté configurado correctamente con las VLAN correspondientes. Además  se debe verificar que el puerto del WLC que está conectado al switch coincida con el puerto configurado en la interfaz del switch.
              ![.](imagenesWiki/wlc.jpg)
              
-    Como se puede ver en la imagen la **direccion Ip** del WLC es 172.23.9.2 y su **Default gateway** es 172.23.9.1, cabe resaltar que la direccion IP debe ser estatica, si se usa DCHP la direccion cambia e interrumple la comunicación con el LAP
+    Como se puede ver en la imagen la **dirección Ip** del WLC es 172.23.9.2 y su **Default Gateway** es 172.23.9.1, cabe resaltar que la dirección IP debe ser estática, si se usa DCHP la dirección cambia e interrumpe la comunicación con el LAP  
             
-           - ***Verificar la VLAN de administración***: Desde el WLC, Asegurarse de que la VLAN de management esté activa y sea la que asigna las IPs al LAP (Lightweight Access Point). En la pestaña de config del LAP en Global dice WLC, la direccion que va en controller desbe ser la dreccion Ip del WLC para que la comunicación sea efectiva.
+           - ***Verificar la VLAN de administración***: Desde el WLC, Asegurarse de que la VLAN de management esté activa y sea la que asigna las IPs al LAP (Lightweight Access Point). En la pestaña de config del LAP en Global dice WLC, la dirección que va en Controller desde ser la dirección Ip del WLC para que la comunicación sea efectiva.
     
     ![.](imagenesWiki/LAP.jpg)
 
-          -***Verificar el DCP en los dispositivos inhalambicos conectados al LAP:*** desde la Tablet PC0, la Laptop0 o el Smartphone0 revisar la  direccion IP asignada por el DHCP y si coincide con la VLAN en la que deberia estar
+          -***Verificar el DCP en los dispositivos inalámbricos conectados al LAP:*** desde la Tablet PC0, la Laptop0 o el Smartphone0 revisar la  dirección IP asignada por el DHCP y si coincide con la VLAN en la que debería estar
 
      ![.](imagenesWiki/cel.jpg)
 
@@ -223,7 +223,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
     - **Configuración paso a paso**
       - Paso 1: Configurar el Dispositivo de Destino
         
-           - Accedee al Dispositivo: El router (R_SOHO) o los switches a los que se va a conectar deben tener configurado un nombre de usuario y una contraseña para Telnet.Esto se hace desde la CLI del dispositivo:
+           - Accede al Dispositivo: El router (R_SOHO) o los switches a los que se va a conectar deben tener configurado un nombre de usuario y una contraseña para Telnet. Esto se hace desde la CLI del dispositivo:
              
                    configure terminal
              
@@ -247,7 +247,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
              
                    password: cisco
 
-       - Paso 3: revisar resultado, si aparece el prompt del dispositivo al que se queria acceder entonces fue exitoso. Esto se puede probar en toda la red SOHO
+       - Paso 3: revisar resultado, si aparece el prompt del dispositivo al que se quería acceder entonces fue exitoso. Esto se puede probar en toda la red SOHO
     
         ![.](imagenesWiki/telnetrouter.jpg)
 
@@ -260,7 +260,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
       - Mejoras sobre RIP: EIGRP es un protocolo de enrutamiento híbrido que combina características de enrutamiento de distancia y de estado, lo que le permite superar las limitaciones de RIP (Routing Information Protocol).
       - Convergencia Rápida: EIGRP tiene tiempos de convergencia más rápidos en comparación con otros protocolos de enrutamiento, lo que significa que puede adaptarse más rápidamente a los cambios en la topología de la red. Esto es crítico en entornos donde la disponibilidad y la estabilidad son esenciales.
       - Métricas Compuestas: EIGRP utiliza una métrica compuesta que incluye ancho de banda, retardo, carga y confiabilidad. Esta flexibilidad permite a los administradores de red influir en la selección de rutas basándose en múltiples criterios, en lugar de depender de un único parámetro. [7]
-      - Máscaras de Subred Variable (VLSM): EIGRP es compatible con VLSM, lo que permite la implementación de subredes de diferentes tamaños en una misma red. En esta topologia fue necesario hacer subneteo VLSM
+      - Máscaras de Subred Variable (VLSM): EIGRP es compatible con VLSM, lo que permite la implementación de subredes de diferentes tamaños en una misma red. En esta topología fue necesario hacer Subneteo VLSM
       - Classless Inter-Domain Routing (CIDR): Permite la implementación de rutas sin clases, lo que optimiza el uso de direcciones IP.
       - Configuración Sencilla: EIGRP es relativamente fácil de configurar en comparación con otros protocolos, lo que puede ahorrar tiempo y reducir la complejidad administrativa.
 
@@ -279,7 +279,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
         
                         router(config)# router eigrp 1
  
-      - Configurar las redes: se deben añadir las redes para que EIGRP las anuncie. es muy importante asegurarse de usar las máscaras de subred correctas según la configuración. Aqui se usan las Ips de las VLANS de todos los espacios de red o sistemas autonomos que se tienen
+      - Configurar las redes: se deben añadir las redes para que EIGRP las anuncie. es muy importante asegurarse de usar las máscaras de subred correctas según la configuración. Aquí se usan las IPs de las VLANS de todos los espacios de red o sistemas autónomos que se tienen
    
                         router(config-router)# network 172.23.0.0 0.0.3.255
                         router(config-router)# network 172.23.4.0 0.0.3.255
@@ -362,7 +362,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
     - D: Indica que la ruta es aprendida a través de EIGRP.
     - [90/2681856]: 90 es la métrica de confianza de EIGRP y 2681856 es el costo total de la ruta.
     - via 200.190.7.2: La dirección IP del siguiente salto para llegar a la red.
-    - Serial0/3/0: La interfaz a través de la cual se accede a la siguiente salto.
+    - Serial0/3/0: La interfaz a través de la cual se accede al siguiente salto.
    
       ***4. Vecinos de EIGRP***
             
@@ -426,12 +426,12 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
     
    ![.](imagenesWiki/eigrpservers.jpg)
 
-   La diferencia principal entre esta configuracion y el paso a paso demostrado anteriormente para la SOHO es en la priemra parte donde se ponen las direcciones IP, pues aca se ponen las VLANS correspondentes a la red de servidores
+   La diferencia principal entre esta configuración y el paso a paso demostrado anteriormente para la SOHO es en la primera parte donde se ponen las direcciones IP, pues acá se ponen las VLANS correspondientes a la red de servidores
     
  **Pruebas del funcionamiento de EIGRP ISP_bog**
    ![.](imagenesWiki/eigrpbpgpta.jpg)
    
-   La diferencia principal entre esta configuracion y el paso a paso demostrado anteriormente para la SOHO es en la priemra parte donde se ponen las direcciones IP, pues aca se ponen las VLANS correspondentes a la red de INTERNET
+   La diferencia principal entre esta configuración y el paso a paso demostrado anteriormente para la SOHO es en la primera parte donde se ponen las direcciones IP, pues acá se ponen las VLANS correspondientes a la red de INTERNET
  
 * **Pruebas de servicios web:** Se configuró un servidor HTTP y se verificó que todos los usuarios pudieran acceder a la página web personalizada (dvt.net) desde cualquier dispositivo de la red, utilizando el dominio gestionado por el servidor DNS.
   
@@ -439,7 +439,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
       - Configurar el Servidor DNS
       - Seleccionar el Servidor: se hace clic en el servidor  para abrir la ventana de configuración.
       - Ir a la Pestaña Config: En la ventana del servidor, selecciona la pestaña "Config" (Configuración).
-      - Activar el Servicio DNS: En el panel izquierdo, se hace clic en "DNS" y se habilita el servicio DNS. Esto teniendo en cuenta que la Ip del servidor es estatica, la pusimos nosotros
+      - Activar el Servicio DNS: En el panel izquierdo, se hace clic en "DNS" y se habilita el servicio DNS. Esto teniendo en cuenta que la Ip del servidor es estática, la pusimos nosotros
       - Agregar Entradas DNS:
       - En el campo "Name", se ingresa el nombre del dominio (dvt.net).
       - En el campo "IP Address", se ingresa la dirección IP correspondiente (161.130.8.2).
@@ -447,13 +447,12 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
  
   El sistema DNS se encargó de resolver el nombre de dominio "dvt.net" a su respectiva dirección IP. Esto fue crucial para que los dispositivos pudieran comunicarse con el servidor web  de manera transparente para los usuarios. [8]
   
-  * **prueba funcioamiento servidor web**
+  * **prueba funcionamiento  servidor web**
 
    ![.](imagenesWiki/pruebafuncionamientoweb.jpg)
    ![.](imagenesWiki/pingweb.jpg)
 
-Para garantizar que las conexiones HTTP se realizaran desde el puerto 80 se programo en el js de la pagina web:
-
+Para garantizar que las conexiones HTTP se realizaran desde el puerto 80 se programó en el js de la página web:
                               
                     // Configurar la ruta principal "/"
                     HTTPServer.route("/", function(url, res) {
@@ -545,7 +544,7 @@ Para garantizar que las conexiones HTTP se realizaran desde el puerto 80 se prog
         Requiere 10 hosts
           
     - **¿Qué dispositivos/interfaces son parte de una subred dada?**
-       Los dos servidores y el router seran parte de la subred
+       Los dos servidores y el router serán parte de la subred
           
           
     - **¿Qué partes de tu red usan direcciones privadas y cuáles usan públicas?**
@@ -682,12 +681,12 @@ La conectividad entre los nodos terminales de diferentes VLANs, el acceso al ser
 
 ## 5. Retos presentados durante el desarrollo de la práctica
 
-Presentamos distintos retos durante el desarrollo del laboratorio, el reto más grande que afrontamos fue el WLC y su conexión  al LAP, al principio cuando intentábamos guardar la configuración en el WLC, este se quedaba en un bucle cargando y nunca se terminaba de cargar, para esto lo sacamos de la red SOHO y lo configuramos solo con un computador, cuando sobrepasamos este reto después no llego otro peor, el cual fue la configuración correcta para que el LAP pudiera darles la VLAN que habíamos configurado a unos dispositivos de manera inalámbrica y que además estos dispositivos consiguieron sus IPs mediante DHCP. Seguimos viendo videos, tutoriales, consejos y nada nos servía, conseguimos configurarlo exactamente igual que estos recursos pero no funcionaba en el LAP, decidimos borrar el WLC original y poner otro, por si esto era el error. Cuando estábamos configurando nuevamente el WLC nos dimos cuenta que no estábamos indicando el port correcto, este cambio toco hacerlo tanto en la WLAN creada como en el management que viene por default en el WLC y además de esto en el Server0 donde teníamos la asignación de los DHCPs, no nos habíamos dado cuenta que tambien teniamos que poner la IP del WLC y las DHCPs creadas para que estas tuvieran efecto, después de hacer estos cambios logramos que por fin el LAP funcionara, después fue solo cambiar los dispositivos wireless para que pudieran conectarse a dicha red WLAN proporcionada por el LAP.
+Presentamos distintos retos durante el desarrollo del laboratorio, el reto más grande que afrontamos fue el WLC y su conexión  al LAP, al principio cuando intentábamos guardar la configuración en el WLC, este se quedaba en un bucle cargando y nunca se terminaba de cargar, para esto lo sacamos de la red SOHO y lo configuramos solo con un computador, cuando sobrepasamos este reto después no llego otro peor, el cual fue la configuración correcta para que el LAP pudiera darles la VLAN que habíamos configurado a unos dispositivos de manera inalámbrica y que además estos dispositivos consiguieron sus IPs mediante DHCP. Seguimos viendo videos, tutoriales, consejos y nada nos servía, conseguimos configurarlo exactamente igual que estos recursos pero no funcionaba en el LAP, decidimos borrar el WLC original y poner otro, por si esto era el error. Cuando estábamos configurando nuevamente el WLC nos dimos cuenta que no estábamos indicando el port correcto, este cambio toco hacerlo tanto en la WLAN creada como en el management que viene por default en el WLC y además de esto en el Server0 donde teníamos la asignación de los DHCPs, no nos habíamos dado cuenta que también teníamos  que poner la IP del WLC y las DHCPs creadas para que estas tuvieran efecto, después de hacer estos cambios logramos que por fin el LAP funcionara, después fue solo cambiar los dispositivos wireless para que pudieran conectarse a dicha red WLAN proporcionada por el LAP.
 
 ## 6. Conclusiones y recomendaciones
 
 1. Optimización en la asignación de IPs con DHCP
-  La implementación de DHCP en la red SOHO automatiza la asignación de direcciones IP, minimizando errores humanos y simplificando la gestión. Esto resulta especialmente útil en entornos dinámicos con dispositivos móviles, garantizando que cada dispositivo reciba una configuración de red adecuada. Pero es importante resaltar que en los servidores o en el WLC no se puede utilizar porque la comunicacion depende de que los dispositivos tengan siempre sus direcciones IP
+  La implementación de DHCP en la red SOHO automatiza la asignación de direcciones IP, minimizando errores humanos y simplificando la gestión. Esto resulta especialmente útil en entornos dinámicos con dispositivos móviles, garantizando que cada dispositivo reciba una configuración de red adecuada. Pero es importante resaltar que en los servidores o en el WLC no se puede utilizar porque la comunicación depende de que los dispositivos tengan siempre sus direcciones IP
 
 2. Mejora de la conectividad con NAT
   El uso de NAT (Network Address Translation) permite a los dispositivos con IPs privadas acceder a Internet mediante una única IP pública. Esta técnica optimiza el uso de direcciones IP y añade seguridad al ocultar las IPs internas, facilitando la comunicación entre la red local y el exterior.
