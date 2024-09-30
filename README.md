@@ -212,7 +212,39 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
             - Type: Indica el tipo de conexión (en este caso, P2p, que significa punto a punto).
 
             
-  * Para verificar si es posible hacer Telnet desde un PC a otros switches y a un router (como R_SOHO) se utiliza el siguiente comando en la línea de comandos (CMD) del PC, **telnet <dirección IP>** 
+  * Para verificar si es posible hacer Telnet desde un PC a otros switches y a un router (como R_SOHO) se utiliza el siguiente comando en la línea de comandos (CMD) del PC, **telnet <dirección IP>**, cabe resaltar que "Telnet es el nombre de un protocolo de red que permite acceder a otra máquina para manejarla remotamente como si estuviéramos sentados delante de ella" [6].
+    - **Configuración paso a paso**
+      - Paso 1: Configurar el Dispositivo de Destino
+        
+           - Accedee al Dispositivo: El router (R_SOHO) o los switches a los que se va a conectar deben tener configurado un nombre de usuario y una contraseña para Telnet.Esto se hace desde la CLI del dispositivo:
+             
+                   configure terminal
+             
+                   line vty 0 4
+             
+                   login local
+             
+                   transport input telnet
+             
+                   username admin password cisco
+    
+      - Paso 2: Configurar el PC
+        
+           - Seleccionar el PC desde el que se va a hacer Telnet, en este caso desde el PC1.
+           - Acceder a la Consola del PC: Seleccionar la pestaña Desktop y luego hacer clic en Command Prompt
+           - Ejecutar el Comando de Telnet: En el símbolo del sistema del PC, se debe escribir el siguiente comando, reemplazando <dirección IP> por la dirección IP del dispositivo al que se va a conectar (por ejemplo, la dirección IP del router R_SOHO ):
+             
+                   telnet 200.190.7.1
+             
+                   username:admin
+             
+                   password: cisco
+
+        -paso 3: revisar resultado, si aparece el prompt del dispositivo al que se queria acceder entonces fue exitoso.
+    
+        ![.](imagenesWiki/telnetrouter.jpg)
+
+
 
 * **Configuración de enrutamiento:** Se configuraron los protocolos de enrutamiento OSPF o EIGRP en las interfaces necesarias, verificando el correcto enrutamiento de paquetes entre las redes LAN y WAN.
   **porque es ese y que interfaces usamos**
@@ -251,3 +283,6 @@ Packet Tracer**.
 4: Cisco, "Cisco 2811 Integrated Services Router," Cisco Community, [En línea] Disponible en: https://community.cisco.com/t5/networking-knowledge-base/cisco-2811-integrated-services-router/ta-p/3116259.
 
 5: A. Sanchez, "Port Address Translation (PAT): Ejemplos," ADSL FAQS, Jul. 11, 2020. [En línea]. Disponible en: https://adslfaqs.com/port-address-translation-pat-ejemplos/.
+
+6: [1] "Telnet," Wikipedia, The Free Encyclopedia. [En línea]. Disponible: https://es.wikipedia.org/wiki/Telnet. 
+
