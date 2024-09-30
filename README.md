@@ -667,7 +667,7 @@ EIGRP permite a los routers identificar las mejores rutas para enviar paquetes e
 TCP establece una conexión confiable entre PC1 y el Web_Server para garantizar que los datos se transfieran de manera ordenada y sin errores.
 HTTP es utilizado por PC1 para solicitar y recibir contenido web desde el Web_Server.
 
-**Prueba funcionamiento NAT**
+**Prueba funcionamiento PAT**
    ![.](imagenesWiki/pruebaNAT.jpg)
 
 La conectividad entre los nodos terminales de diferentes VLANs, el acceso al servidor web mediante DNS y la verificación del tráfico de red mediante capturas de paquetes, evidencian que la red está configurada correctamente. Las capturas y el análisis de los paquetes reflejan que tanto la resolución de nombres como el acceso a servicios web están funcionando de manera óptima en la topología.
