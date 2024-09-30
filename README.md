@@ -602,6 +602,7 @@ Para garantizar que las conexiones HTTP se realizaran desde el puerto 80 se prog
 
 
 5) ***Evaluación del flujo bidireccional de datos generado al acceder a la página alojada en el servidor Web por los nodos terminales (PCs y dispositivos móviles) de las diferentes VLANs que conforman la topología, utilizando el servicio DNS***
+   
 Anteriormente se han presentado pruebas que demuestran el correcto funcionamiento de la conectividad entre los nodos terminales, el acceso al servidor web y la resolución de nombres mediante DNS. A continuación, se procederá con el análisis detallado del tráfico de red, utilizando capturas de paquetes para verificar el flujo bidireccional de datos y asegurar el correcto enrutamiento y procesamiento de solicitudes en la red:
 
 **Descripción de la secuencia de comunicación:**
