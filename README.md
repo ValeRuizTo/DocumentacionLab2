@@ -190,7 +190,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
     
     * la salida del comando show spanning-tree muestra que el switch actual (sw1_Intranet) es el puente raíz para varias VLANs
       
-                                  ![.](imagenesWiki/spanningtree.jpg)
+      ![.](imagenesWiki/spanningtree.jpg)
   
 
       * Información General de VLANs:
@@ -429,6 +429,7 @@ Aquí se encuentran un servidor DNS y un servidor web, conectados a un switch (2
    La diferencia principal entre esta configuración y el paso a paso demostrado anteriormente para la SOHO es en la primera parte donde se ponen las direcciones IP, pues acá se ponen las VLANS correspondientes a la red de servidores
     
  **Pruebas del funcionamiento de EIGRP ISP_bog**
+ 
    ![.](imagenesWiki/eigrpbpgpta.jpg)
    
    La diferencia principal entre esta configuración y el paso a paso demostrado anteriormente para la SOHO es en la primera parte donde se ponen las direcciones IP, pues acá se ponen las VLANS correspondientes a la red de INTERNET
