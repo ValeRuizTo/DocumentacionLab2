@@ -483,68 +483,66 @@ Para garantizar que las conexiones HTTP se realizaran desde el puerto 80 se prog
 
 ## 4. Puntos solicitados en la sección de Resultados y Análisis
 
-1) ***Diseño estructurado SOHO**
-  - **¿Cuántas subredes necesitas?**
+1)  ***Diseño estructurado SOHO***
+    - **¿Cuántas subredes necesitas?**
+      
+      -Necesitamos 4 subredes, una para cada VLAN (20, 40, 99 y 55).
     
-    -Necesitamos 4 subredes, una para cada VLAN (20, 40, 99 y 55).
-  
-  - **¿Qué dispositivos/interfaces son parte de una subred dada?**
-      - Cada subred incluirá los dispositivos asignados a las VLANs específicas:
-        - VLAN 20: Dispositivos de Guest
-        - VLAN 40: Dispositivos de Internal
-        - VLAN 99: Dispositivos de Native
-        - VLAN 55: Dispositivos de Staff
-        
-  - **¿Cuántos dispositivos/hosts requiere la subred?**
-      - VLAN 20: 1022 hosts
-      - VLAN 40: 1022 hosts
-      - VLAN 99: 254 hosts
-      - VLAN 55: 254 hosts
-        
-  - **¿Qué partes de tu red usan direcciones privadas y cuáles usan públicas?**
-    
-      - La red SOHO usa direcciones privadas dentro del rango 172.23.0.0/16.
-
-  - **¿Dónde deberían conservarse las direcciones?**
-    
-      - Las direcciones deben conservarse en las subredes que requieren menos hosts, como las VLANs 99 y 55.
- 
- 2) ***Diseño estructurado INTERNET**
-  - **¿Cuántas subredes necesitas?**
-    
-    -Necesitamos 2 subredes, una para cada VLAN (1 y 2).
-  
-  - **¿Qué dispositivos/interfaces son parte de una subred dada?**
-      - Cada subred incluirá los dispositivos asignados a las VLANs específicas:
-        - VLAN 1: ISP_BOGOTA tiene la interfaz serial 0/3/1, ISP_NET tiene la interfaz serial 0/3/0
-        - VLAN 2:  ISP_NET tiene la interfaz serial 0/3/1, ISP_TX tiene la interfaz 0/3/0
-        
-        
-  - **¿Cuántos dispositivos/hosts requiere la subred?**
-     Ambas VLAN requieren 2 hosts
-        
-  - **¿Qué partes de tu red usan direcciones privadas y cuáles usan públicas?**
-    
-      - La red requiere direcciones publicas ya que es una WAN y es el ISP, dentro del rango 11.31.12.0
-
-
-3) ***Diseño estructurado SERVIDORES**
-  - **¿Cuántas subredes necesitas?**
-    
-    -Necesitamos 1 subred.
-
+    - **¿Qué dispositivos/interfaces son parte de una subred dada?**
+        - Cada subred incluirá los dispositivos asignados a las VLANs específicas:
+          - VLAN 20: Dispositivos de Guest
+          - VLAN 40: Dispositivos de Internal
+          - VLAN 99: Dispositivos de Native
+          - VLAN 55: Dispositivos de Staff
+          
     - **¿Cuántos dispositivos/hosts requiere la subred?**
-      Requiere 10 hosts
-        
-  - **¿Qué dispositivos/interfaces son parte de una subred dada?**
-     Los dos servidores y el router seran parte de la subred
-        
-        
-  - **¿Qué partes de tu red usan direcciones privadas y cuáles usan públicas?**
+        - VLAN 20: 1022 hosts
+        - VLAN 40: 1022 hosts
+        - VLAN 99: 254 hosts
+        - VLAN 55: 254 hosts
+          
+    - **¿Qué partes de tu red usan direcciones privadas y cuáles usan públicas?**
+      
+        - La red SOHO usa direcciones privadas dentro del rango 172.23.0.0/16.
+  
+    - **¿Dónde deberían conservarse las direcciones?**
+      
+        - Las direcciones deben conservarse en las subredes que requieren menos hosts, como las VLANs 99 y 55.
+   
+ 2) ***Diseño estructurado INTERNET***
+    - **¿Cuántas subredes necesitas?**
+      
+      -Necesitamos 2 subredes, una para cada VLAN (1 y 2).
     
-      - La red de servidores usa direcciones publicas dentro del rango 161.130.8.0.
+    - **¿Qué dispositivos/interfaces son parte de una subred dada?**
+        - Cada subred incluirá los dispositivos asignados a las VLANs específicas:
+          - VLAN 1: ISP_BOGOTA tiene la interfaz serial 0/3/1, ISP_NET tiene la interfaz serial 0/3/0
+          - VLAN 2:  ISP_NET tiene la interfaz serial 0/3/1, ISP_TX tiene la interfaz 0/3/0
+          
+          
+    - **¿Cuántos dispositivos/hosts requiere la subred?**
+       Ambas VLAN requieren 2 hosts
+          
+    - **¿Qué partes de tu red usan direcciones privadas y cuáles usan públicas?**
+      
+        - La red requiere direcciones publicas ya que es una WAN y es el ISP, dentro del rango 11.31.12.0
 
 
+3) ***Diseño estructurado SERVIDORES***
+    - **¿Cuántas subredes necesitas?**
+      
+      -Necesitamos 1 subred.
+  
+      - **¿Cuántos dispositivos/hosts requiere la subred?**
+        Requiere 10 hosts
+          
+    - **¿Qué dispositivos/interfaces son parte de una subred dada?**
+       Los dos servidores y el router seran parte de la subred
+          
+          
+    - **¿Qué partes de tu red usan direcciones privadas y cuáles usan públicas?**
+      
+        - La red de servidores usa direcciones publicas dentro del rango 161.130.8.0.
 
 
 
