@@ -482,9 +482,92 @@ Para garantizar que las conexiones HTTP se realizaran desde el puerto 80 se prog
 
 
 ## 4. Puntos solicitados en la sección de Resultados y Análisis
-1) Responda a cada una de las preguntas guías del diseño estructurado propuesta en clase y documente 
-todo el proceso de desarrollo del esquema de direccionamiento IPv4 propuesto por su equipo y diligencie 
-las tablas de Subneteo y direccionamiento de la red.
+
+1) ***Diseño estructurado SOHO**
+  - **¿Cuántas subredes necesitas?**
+    
+    -Necesitamos 4 subredes, una para cada VLAN (20, 40, 99 y 55).
+  
+  - **¿Qué dispositivos/interfaces son parte de una subred dada?**
+      - Cada subred incluirá los dispositivos asignados a las VLANs específicas:
+        - VLAN 20: Dispositivos de Guest
+        - VLAN 40: Dispositivos de Internal
+        - VLAN 99: Dispositivos de Native
+        - VLAN 55: Dispositivos de Staff
+        
+  - **¿Cuántos dispositivos/hosts requiere la subred?**
+      - VLAN 20: 1022 hosts
+      - VLAN 40: 1022 hosts
+      - VLAN 99: 254 hosts
+      - VLAN 55: 254 hosts
+        
+  - **¿Qué partes de tu red usan direcciones privadas y cuáles usan públicas?**
+    
+      - La red SOHO usa direcciones privadas dentro del rango 172.23.0.0/16.
+
+  - **¿Dónde deberían conservarse las direcciones?**
+    
+      - Las direcciones deben conservarse en las subredes que requieren menos hosts, como las VLANs 99 y 55.
+ 
+ 2) ***Diseño estructurado INTERNET**
+  - **¿Cuántas subredes necesitas?**
+    
+    -Necesitamos 2 subredes, una para cada VLAN (1 y 2).
+  
+  - **¿Qué dispositivos/interfaces son parte de una subred dada?**
+      - Cada subred incluirá los dispositivos asignados a las VLANs específicas:
+        - VLAN 1: un servidor
+        - VLAN 2: un servidor
+        - VLAN 99: Dispositivos de Native
+        - VLAN 55: Dispositivos de Staff
+        
+  - **¿Cuántos dispositivos/hosts requiere la subred?**
+      - VLAN 20: 1022 hosts
+      - VLAN 40: 1022 hosts
+      - VLAN 99: 254 hosts
+      - VLAN 55: 254 hosts
+        
+  - **¿Qué partes de tu red usan direcciones privadas y cuáles usan públicas?**
+    
+      - La red SOHO usa direcciones privadas dentro del rango 172.23.0.0/16.
+
+  - **¿Dónde deberían conservarse las direcciones?**
+    
+      - Las direcciones deben conservarse en las subredes que requieren menos hosts, como las VLANs 99 y 55.
+
+
+3) ***Diseño estructurado SERVIDORES**
+  - **¿Cuántas subredes necesitas?**
+    
+    -Necesitamos 4 subredes, una para cada VLAN (20, 40, 99 y 55).
+  
+  - **¿Qué dispositivos/interfaces son parte de una subred dada?**
+      - Cada subred incluirá los dispositivos asignados a las VLANs específicas:
+        - VLAN 20: Dispositivos de Guest
+        - VLAN 40: Dispositivos de Internal
+        - VLAN 99: Dispositivos de Native
+        - VLAN 55: Dispositivos de Staff
+        
+  - **¿Cuántos dispositivos/hosts requiere la subred?**
+      - VLAN 20: 1022 hosts
+      - VLAN 40: 1022 hosts
+      - VLAN 99: 254 hosts
+      - VLAN 55: 254 hosts
+        
+  - **¿Qué partes de tu red usan direcciones privadas y cuáles usan públicas?**
+    
+      - La red SOHO usa direcciones privadas dentro del rango 172.23.0.0/16.
+
+  - **¿Dónde deberían conservarse las direcciones?**
+    
+      - Las direcciones deben conservarse en las subredes que requieren menos hosts, como las VLANs 99 y 55.
+
+
+
+
+
+
+
 **Subneteo y su tabla**
 
 **Tabla de direccionamiento de red**
